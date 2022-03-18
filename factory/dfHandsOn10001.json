@@ -1,0 +1,9 @@
+{
+	"name": "dfHandsOn10001",
+	"location": "southindia",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "93ded643-4449-419d-bf19-0abe72796405",
+		"tenantId": "d8165f61-9184-4e60-aa56-52c8a8110dbe"
+	}
+}
