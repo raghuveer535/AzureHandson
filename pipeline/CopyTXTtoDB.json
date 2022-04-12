@@ -1,0 +1,118 @@
+{
+	"name": "CopyTXTtoDB",
+	"properties": {
+		"activities": [
+			{
+				"name": "Copy_t7g",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [
+					{
+						"name": "Source",
+						"value": "contbank//bank-data.txt"
+					},
+					{
+						"name": "Destination",
+						"value": ".Bank_Cust"
+					}
+				],
+				"typeProperties": {
+					"source": {
+						"type": "DelimitedTextSource",
+						"storeSettings": {
+							"type": "AzureBlobStorageReadSettings",
+							"recursive": true,
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "DelimitedTextReadSettings",
+							"skipLineCount": 0
+						}
+					},
+					"sink": {
+						"type": "AzureSqlSink",
+						"tableOption": "autoCreate"
+					},
+					"enableStaging": false,
+					"validateDataConsistency": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "20",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "20",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "student",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "student",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "single",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "single",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "yes",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "yes",
+									"type": "String"
+								}
+							}
+						],
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "SourceDataset_t7g",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "DestinationDataset_t7g",
+						"type": "DatasetReference"
+					}
+				]
+			}
+		],
+		"annotations": [],
+		"lastPublishTime": "2022-03-29T16:26:08Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

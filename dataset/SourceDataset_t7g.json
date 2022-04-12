@@ -1,0 +1,41 @@
+{
+	"name": "SourceDataset_t7g",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureBlobStorage1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "bank-data.txt",
+				"container": "contbank"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "20",
+				"type": "String"
+			},
+			{
+				"name": "student",
+				"type": "String"
+			},
+			{
+				"name": "single",
+				"type": "String"
+			},
+			{
+				"name": "yes",
+				"type": "String"
+			}
+		]
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

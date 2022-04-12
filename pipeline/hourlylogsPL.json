@@ -1,0 +1,26 @@
+{
+	"name": "hourlylogsPL",
+	"properties": {
+		"activities": [
+			{
+				"name": "Set variable1",
+				"type": "SetVariable",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "a",
+					"value": "10"
+				}
+			}
+		],
+		"variables": {
+			"a": {
+				"type": "String",
+				"defaultValue": "10"
+			}
+		},
+		"annotations": [],
+		"lastPublishTime": "2022-04-05T17:18:15Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

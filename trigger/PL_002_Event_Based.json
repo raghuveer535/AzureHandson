@@ -1,0 +1,25 @@
+{
+	"name": "PL_002_Event_Based",
+	"properties": {
+		"annotations": [],
+		"runtimeState": "Started",
+		"pipelines": [
+			{
+				"pipelineReference": {
+					"referenceName": "PL_002_Blob_to_SQL",
+					"type": "PipelineReference"
+				}
+			}
+		],
+		"type": "BlobEventsTrigger",
+		"typeProperties": {
+			"blobPathBeginsWith": "/contbank/blobs/All",
+			"blobPathEndsWith": ".txt",
+			"ignoreEmptyBlobs": true,
+			"scope": "/subscriptions/5dcc5dc0-5dbf-435d-9fa9-d37c781ab0c8/resourceGroups/rgAzureHandson/providers/Microsoft.Storage/storageAccounts/sablob1001",
+			"events": [
+				"Microsoft.Storage.BlobCreated"
+			]
+		}
+	}
+}

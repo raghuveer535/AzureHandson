@@ -1,0 +1,74 @@
+{
+	"name": "AllCountries",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureDataLakeStorage1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "AllCountries.csv",
+				"folderPath": "input",
+				"fileSystem": "python-practice"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "Country",
+				"type": "String"
+			},
+			{
+				"name": "LandArea",
+				"type": "String"
+			},
+			{
+				"name": "Population",
+				"type": "String"
+			},
+			{
+				"name": "GDP",
+				"type": "String"
+			},
+			{
+				"name": "Rural",
+				"type": "String"
+			},
+			{
+				"name": "Internet",
+				"type": "String"
+			},
+			{
+				"name": "BirthRate",
+				"type": "String"
+			},
+			{
+				"name": "DeathRate",
+				"type": "String"
+			},
+			{
+				"name": "ElderlyPop",
+				"type": "String"
+			},
+			{
+				"name": "LifeExpectancy",
+				"type": "String"
+			},
+			{
+				"name": "FemaleLabor",
+				"type": "String"
+			},
+			{
+				"name": "Unemployment",
+				"type": "String"
+			}
+		]
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

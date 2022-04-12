@@ -1,0 +1,25 @@
+{
+	"name": "PL001Trigger",
+	"properties": {
+		"annotations": [],
+		"runtimeState": "Stopped",
+		"pipelines": [
+			{
+				"pipelineReference": {
+					"referenceName": "PL_001_Copy_DL_TO_Blob",
+					"type": "PipelineReference"
+				}
+			}
+		],
+		"type": "ScheduleTrigger",
+		"typeProperties": {
+			"recurrence": {
+				"frequency": "Minute",
+				"interval": 3,
+				"startTime": "2022-04-06T07:45:00Z",
+				"endTime": "2022-04-07T07:45:00Z",
+				"timeZone": "UTC"
+			}
+		}
+	}
+}

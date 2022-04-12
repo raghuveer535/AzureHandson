@@ -1,0 +1,29 @@
+{
+	"name": "dfHandsOn1001",
+	"properties": {
+		"globalParameters": {
+			"GP_ServerName": {
+				"type": "string",
+				"value": "rgdbserver1001.database.windows.net"
+			},
+			"GP_DbName": {
+				"type": "string",
+				"value": "DbScott"
+			},
+			"GP_Db_UserName": {
+				"type": "string",
+				"value": "admin1001"
+			},
+			"GP_Password": {
+				"type": "string",
+				"value": "Admin123"
+			}
+		}
+	},
+	"location": "southindia",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "6ca8ff8e-b2cc-4854-bc5f-e441c954daa9",
+		"tenantId": "d8165f61-9184-4e60-aa56-52c8a8110dbe"
+	}
+}

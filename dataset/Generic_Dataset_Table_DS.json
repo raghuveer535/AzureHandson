@@ -1,0 +1,55 @@
+{
+	"name": "Generic_Dataset_Table_DS",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "Generic_SQL_LinkService",
+			"type": "LinkedServiceReference",
+			"parameters": {
+				"ServerName": {
+					"value": "@dataset().pmServerName",
+					"type": "Expression"
+				},
+				"DbName": {
+					"value": "@dataset().pmDbName",
+					"type": "Expression"
+				},
+				"UserName": {
+					"value": "@dataset().pmUserName",
+					"type": "Expression"
+				},
+				"Password": {
+					"value": "@dataset().pmPassword",
+					"type": "Expression"
+				}
+			}
+		},
+		"parameters": {
+			"pmTableName": {
+				"type": "string"
+			},
+			"pmServerName": {
+				"type": "string"
+			},
+			"pmDbName": {
+				"type": "string"
+			},
+			"pmUserName": {
+				"type": "string"
+			},
+			"pmPassword": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": {
+				"value": "@dataset().pmTableName",
+				"type": "Expression"
+			}
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

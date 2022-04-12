@@ -1,0 +1,16 @@
+{
+	"name": "DestinationDataset_t7g",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureSqlDatabaseLinkedservice",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [],
+		"typeProperties": {
+			"table": "Bank_Cust"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

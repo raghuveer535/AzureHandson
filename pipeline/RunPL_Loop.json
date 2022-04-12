@@ -1,0 +1,48 @@
+{
+	"name": "RunPL_Loop",
+	"properties": {
+		"activities": [
+			{
+				"name": "ForEach1",
+				"type": "ForEach",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@variables('count')",
+						"type": "Expression"
+					},
+					"isSequential": true,
+					"activities": [
+						{
+							"name": "CopyTXTtoDB",
+							"type": "ExecutePipeline",
+							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"pipeline": {
+									"referenceName": "CopyTXTtoDB",
+									"type": "PipelineReference"
+								},
+								"waitOnCompletion": true
+							}
+						}
+					]
+				}
+			}
+		],
+		"variables": {
+			"count": {
+				"type": "Array",
+				"defaultValue": [
+					"1",
+					"2",
+					"3"
+				]
+			}
+		},
+		"annotations": [],
+		"lastPublishTime": "2022-03-29T17:12:52Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

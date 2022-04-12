@@ -1,0 +1,29 @@
+{
+	"name": "hourlydataPL",
+	"properties": {
+		"activities": [
+			{
+				"name": "Set variable1",
+				"type": "SetVariable",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "b",
+					"value": {
+						"value": "a",
+						"type": "Expression"
+					}
+				}
+			}
+		],
+		"variables": {
+			"b": {
+				"type": "String",
+				"defaultValue": "10"
+			}
+		},
+		"annotations": [],
+		"lastPublishTime": "2022-04-05T18:00:04Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

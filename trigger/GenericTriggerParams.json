@@ -1,0 +1,41 @@
+{
+	"name": "GenericTriggerParams",
+	"properties": {
+		"annotations": [],
+		"runtimeState": "Started",
+		"pipelines": [
+			{
+				"pipelineReference": {
+					"referenceName": "Generic_Param_PL",
+					"type": "PipelineReference"
+				},
+				"parameters": {
+					"plServerName": "rgdbserver1001.database.windows.net",
+					"plDbName": "DbScott",
+					"plUsername": "admin1001",
+					"plPassword": "Admin123",
+					"plSourceTable": "allcountries",
+					"plTargetTable": "countriesinfo"
+				}
+			}
+		],
+		"type": "ScheduleTrigger",
+		"typeProperties": {
+			"recurrence": {
+				"frequency": "Day",
+				"interval": 1,
+				"startTime": "2022-04-08T10:27:00Z",
+				"endTime": "2022-04-09T10:27:00Z",
+				"timeZone": "UTC",
+				"schedule": {
+					"minutes": [
+						35
+					],
+					"hours": [
+						10
+					]
+				}
+			}
+		}
+	}
+}
