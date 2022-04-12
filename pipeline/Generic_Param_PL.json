@@ -113,6 +113,9 @@
 			},
 			"plTargetTable": {
 				"type": "string"
+			},
+			"plJobLoadDate": {
+				"type": "string"
 			}
 		},
 		"annotations": [],
