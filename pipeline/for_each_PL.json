@@ -66,6 +66,26 @@
 						}
 					]
 				}
+			},
+			{
+				"name": "Append variable1",
+				"type": "AppendVariable",
+				"dependsOn": [
+					{
+						"activity": "ForEach1",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "xvar",
+					"value": {
+						"value": "@activity('copyForEach')",
+						"type": "Expression"
+					}
+				}
 			}
 		],
 		"parameters": {
@@ -76,6 +96,11 @@
 					"out2",
 					"out3"
 				]
+			}
+		},
+		"variables": {
+			"xvar": {
+				"type": "Array"
 			}
 		},
 		"annotations": []
