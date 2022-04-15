@@ -1,0 +1,56 @@
+{
+	"name": "Leela_Generic_Dataset_Source",
+	"properties": {
+		"description": "Leela_Generic_Dataset_Source",
+		"linkedServiceName": {
+			"referenceName": "Leela_GenericSQL_LinkedServices",
+			"type": "LinkedServiceReference",
+			"parameters": {
+				"ServerName": {
+					"value": "@dataset().PM_ServerName",
+					"type": "Expression"
+				},
+				"DBName": {
+					"value": "@dataset().PM_DBName",
+					"type": "Expression"
+				},
+				"Username": {
+					"value": "@dataset().PM_UserName",
+					"type": "Expression"
+				},
+				"Password": {
+					"value": "@dataset().PM_Password",
+					"type": "Expression"
+				}
+			}
+		},
+		"parameters": {
+			"PM_ServerName": {
+				"type": "string"
+			},
+			"PM_DBName": {
+				"type": "string"
+			},
+			"PM_UserName": {
+				"type": "string"
+			},
+			"PM_Password": {
+				"type": "string"
+			},
+			"PM_TableName": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": {
+				"value": "@dataset().PM_TableName",
+				"type": "Expression"
+			}
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

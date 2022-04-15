@@ -1,0 +1,9 @@
+{
+	"name": "dfleela",
+	"location": "southindia",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "8046f5af-9dd3-4afd-a8f0-a1245337a667",
+		"tenantId": "d8165f61-9184-4e60-aa56-52c8a8110dbe"
+	}
+}

@@ -1,0 +1,103 @@
+{
+	"name": "Leela_ForEach_Activity",
+	"properties": {
+		"activities": [
+			{
+				"name": "ForEach Activity",
+				"description": "ForEach Activity",
+				"type": "ForEach",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@pipeline().parameters.OutputFolder",
+						"type": "Expression"
+					},
+					"isSequential": true,
+					"activities": [
+						{
+							"name": "CopyData Based on the ForEach",
+							"description": "CopyData Based on the ForEach",
+							"type": "Copy",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "7.00:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"source": {
+									"type": "BinarySource",
+									"storeSettings": {
+										"type": "AzureBlobStorageReadSettings",
+										"recursive": true
+									},
+									"formatSettings": {
+										"type": "BinaryReadSettings"
+									}
+								},
+								"sink": {
+									"type": "BinarySink",
+									"storeSettings": {
+										"type": "AzureBlobStorageWriteSettings"
+									}
+								},
+								"enableStaging": false
+							},
+							"inputs": [
+								{
+									"referenceName": "Leela_Generic_Blob_Source",
+									"type": "DatasetReference",
+									"parameters": {
+										"SourceFolderName": {
+											"value": "@pipeline().parameters.SourceFolder",
+											"type": "Expression"
+										},
+										"SourceFileName": {
+											"value": "@pipeline().parameters.SourceFileName",
+											"type": "Expression"
+										}
+									}
+								}
+							],
+							"outputs": [
+								{
+									"referenceName": "Leela_Blob_ForEach",
+									"type": "DatasetReference",
+									"parameters": {
+										"SourceFolder": {
+											"value": "@pipeline().parameters.OutputFolder",
+											"type": "Expression"
+										}
+									}
+								}
+							]
+						}
+					]
+				}
+			}
+		],
+		"parameters": {
+			"SourceFolder": {
+				"type": "string"
+			},
+			"SourceFileName": {
+				"type": "string"
+			},
+			"OutputFolder": {
+				"type": "array",
+				"defaultValue": [
+					1,
+					2,
+					3
+				]
+			}
+		},
+		"annotations": [],
+		"lastPublishTime": "2022-04-10T08:57:12Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

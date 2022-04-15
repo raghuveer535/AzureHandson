@@ -1,0 +1,19 @@
+{
+	"name": "Leela_FolderLeela_Reference",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "Leela_Generic_BlobStorage_LS",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Binary",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"folderPath": "Leela",
+				"container": "leelablobcontainer"
+			}
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

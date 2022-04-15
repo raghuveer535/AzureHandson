@@ -1,0 +1,120 @@
+{
+	"name": "Leela_File2DBCopy",
+	"properties": {
+		"description": "Leela_File2DBCopy",
+		"activities": [
+			{
+				"name": "Copy data1",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "DelimitedTextSource",
+						"storeSettings": {
+							"type": "AzureBlobStorageReadSettings",
+							"recursive": true,
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "DelimitedTextReadSettings"
+						}
+					},
+					"sink": {
+						"type": "AzureSqlSink",
+						"writeBehavior": "insert",
+						"sqlWriterUseTableLock": false,
+						"tableOption": "autoCreate",
+						"disableMetricsCollection": false
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "Leela_CSV_Dataset",
+						"type": "DatasetReference",
+						"parameters": {
+							"FolderName": {
+								"value": "@pipeline().parameters.SourceFolderName",
+								"type": "Expression"
+							},
+							"FileName": {
+								"value": "@pipeline().parameters.SourceFileName",
+								"type": "Expression"
+							}
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "Leela_Generic_Dataset_Source",
+						"type": "DatasetReference",
+						"parameters": {
+							"PM_ServerName": {
+								"value": "@pipeline().parameters.ServerName",
+								"type": "Expression"
+							},
+							"PM_DBName": {
+								"value": "@pipeline().parameters.DBName",
+								"type": "Expression"
+							},
+							"PM_UserName": {
+								"value": "@pipeline().parameters.UserName",
+								"type": "Expression"
+							},
+							"PM_Password": {
+								"value": "@pipeline().parameters.Password",
+								"type": "Expression"
+							},
+							"PM_TableName": {
+								"value": "@pipeline().parameters.TableName",
+								"type": "Expression"
+							}
+						}
+					}
+				]
+			}
+		],
+		"parameters": {
+			"ServerName": {
+				"type": "string"
+			},
+			"DBName": {
+				"type": "string"
+			},
+			"TableName": {
+				"type": "string"
+			},
+			"UserName": {
+				"type": "string"
+			},
+			"Password": {
+				"type": "string"
+			},
+			"SourceFolderName": {
+				"type": "string"
+			},
+			"SourceFileName": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"lastPublishTime": "2022-04-09T11:34:35Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

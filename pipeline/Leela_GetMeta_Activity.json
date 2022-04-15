@@ -1,0 +1,61 @@
+{
+	"name": "Leela_GetMeta_Activity",
+	"properties": {
+		"description": "Leela_GetMeta_Activity",
+		"activities": [
+			{
+				"name": "Get Metadata Activity",
+				"description": "Get Metadata Activity",
+				"type": "GetMetadata",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"dataset": {
+						"referenceName": "Leela_Generic_Blob_Source",
+						"type": "DatasetReference",
+						"parameters": {
+							"SourceFolderName": {
+								"value": "@pipeline().parameters.SourceFolder",
+								"type": "Expression"
+							},
+							"SourceFileName": {
+								"value": "@pipeline().parameters.SourceFileName",
+								"type": "Expression"
+							}
+						}
+					},
+					"fieldList": [
+						"itemName",
+						"lastModified"
+					],
+					"storeSettings": {
+						"type": "AzureBlobStorageReadSettings",
+						"recursive": true,
+						"enablePartitionDiscovery": false
+					},
+					"formatSettings": {
+						"type": "BinaryReadSettings"
+					}
+				}
+			}
+		],
+		"parameters": {
+			"SourceFolder": {
+				"type": "string"
+			},
+			"SourceFileName": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"lastPublishTime": "2022-04-10T09:11:13Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

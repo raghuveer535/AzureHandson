@@ -1,0 +1,34 @@
+{
+	"name": "Leela_DBCopy_Generic_Trigger",
+	"properties": {
+		"description": "Leela_DBCopy_Generic_Trigger",
+		"annotations": [],
+		"runtimeState": "Started",
+		"pipelines": [
+			{
+				"pipelineReference": {
+					"referenceName": "Leela_Generic_DBDataCopy_PL",
+					"type": "PipelineReference"
+				},
+				"parameters": {
+					"pl_ServerName": "rgdbserver1001.database.windows.net",
+					"pl_DBName": "DbScott",
+					"pl_UserName": "admin1001",
+					"pl_Password": "Admin123",
+					"pl_SourceTable": "allcountries",
+					"pl_TargetTable": "countriesinfo"
+				}
+			}
+		],
+		"type": "ScheduleTrigger",
+		"typeProperties": {
+			"recurrence": {
+				"frequency": "Day",
+				"interval": 1,
+				"startTime": "2022-04-09T07:30:00Z",
+				"endTime": "2022-04-10T07:30:00Z",
+				"timeZone": "UTC"
+			}
+		}
+	}
+}

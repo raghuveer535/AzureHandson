@@ -1,0 +1,167 @@
+{
+	"name": "Leela_Procedure_Transformation",
+	"properties": {
+		"description": "Leela_Procedure_Transformation",
+		"activities": [
+			{
+				"name": "CopyData for Procedure",
+				"description": "CopyData for Procedure",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [
+					{
+						"name": "Source",
+						"value": "leelablobcontainer/@{pipeline().parameters.SourceFolder}/@{pipeline().parameters.SourceFile}"
+					},
+					{
+						"name": "Destination",
+						"value": "leelablobcontainer/@{pipeline().parameters.TargetFolder}/@{pipeline().parameters.TargerFile}"
+					}
+				],
+				"typeProperties": {
+					"source": {
+						"type": "BinarySource",
+						"storeSettings": {
+							"type": "AzureBlobStorageReadSettings",
+							"recursive": true
+						},
+						"formatSettings": {
+							"type": "BinaryReadSettings"
+						}
+					},
+					"sink": {
+						"type": "BinarySink",
+						"storeSettings": {
+							"type": "AzureBlobStorageWriteSettings"
+						}
+					},
+					"enableStaging": false
+				},
+				"inputs": [
+					{
+						"referenceName": "Leela_Generic_Blob_Source",
+						"type": "DatasetReference",
+						"parameters": {
+							"SourceFolderName": {
+								"value": "@pipeline().parameters.SourceFolder",
+								"type": "Expression"
+							},
+							"SourceFileName": {
+								"value": "@pipeline().parameters.SourceFile",
+								"type": "Expression"
+							}
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "Leela_Generic_Blob_Target",
+						"type": "DatasetReference",
+						"parameters": {
+							"TargetFolder": {
+								"value": "@pipeline().parameters.TargetFolder",
+								"type": "Expression"
+							},
+							"TargetFileName": {
+								"value": "@pipeline().parameters.TargerFile",
+								"type": "Expression"
+							}
+						}
+					}
+				]
+			},
+			{
+				"name": "Stored procedure1",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [
+					{
+						"activity": "CopyData for Procedure",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[dbo].[proc_logpipelineexecdtls2]",
+					"storedProcedureParameters": {
+						"datafactoryname": {
+							"value": {
+								"value": "@pipeline().DataFactory",
+								"type": "Expression"
+							},
+							"type": "String"
+						},
+						"pipelinename": {
+							"value": {
+								"value": "@pipeline().Pipeline",
+								"type": "Expression"
+							},
+							"type": "String"
+						},
+						"pipelinerunid": {
+							"value": {
+								"value": "@pipeline().RunId",
+								"type": "Expression"
+							},
+							"type": "String"
+						},
+						"pipelinetriggername": {
+							"value": {
+								"value": "@pipeline().TriggerName",
+								"type": "Expression"
+							},
+							"type": "String"
+						},
+						"pipelinetriggertime": {
+							"value": {
+								"value": "@pipeline().TriggerTime",
+								"type": "Expression"
+							},
+							"type": "String"
+						}
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "Leela_AzureSQL_Procedure_LS",
+					"type": "LinkedServiceReference",
+					"parameters": {
+						"ServerName": "rgdbserver1001.database.windows.net",
+						"DBName": "DbScott"
+					}
+				}
+			}
+		],
+		"parameters": {
+			"SourceFolder": {
+				"type": "string"
+			},
+			"SourceFile": {
+				"type": "string"
+			},
+			"TargetFolder": {
+				"type": "string"
+			},
+			"TargerFile": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"lastPublishTime": "2022-04-11T11:44:40Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

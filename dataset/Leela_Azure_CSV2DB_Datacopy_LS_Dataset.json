@@ -1,0 +1,27 @@
+{
+	"name": "Leela_Azure_CSV2DB_Datacopy_LS_Dataset",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "Leela_Azure_CSV2DB_Datacopy_LS",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "name",
+				"type": "varchar"
+			},
+			{
+				"name": "num",
+				"type": "int",
+				"precision": 10
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "tstleela2"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

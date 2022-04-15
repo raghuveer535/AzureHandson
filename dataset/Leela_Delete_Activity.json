@@ -1,0 +1,19 @@
+{
+	"name": "Leela_Delete_Activity",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "Leela_Delete_Activity",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Binary",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"folderPath": "Output",
+				"container": "leelablobcontainer"
+			}
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

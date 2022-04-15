@@ -1,0 +1,35 @@
+{
+	"name": "Leela_Generic_Blob_Target",
+	"properties": {
+		"description": "Leela_Generic_Blob_Target",
+		"linkedServiceName": {
+			"referenceName": "Leela_Generic_BlobStorage_LS",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"TargetFolder": {
+				"type": "string"
+			},
+			"TargetFileName": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "Binary",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": {
+					"value": "@dataset().TargetFileName",
+					"type": "Expression"
+				},
+				"folderPath": {
+					"value": "@dataset().TargetFolder",
+					"type": "Expression"
+				},
+				"container": "leelablobcontainer"
+			}
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

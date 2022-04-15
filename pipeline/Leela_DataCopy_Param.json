@@ -1,0 +1,90 @@
+{
+	"name": "Leela_DataCopy_Param",
+	"properties": {
+		"description": "Leela_DataCopy_Param",
+		"activities": [
+			{
+				"name": "DataCopyParameterBased",
+				"description": "DataCopyParameterBased",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "BinarySource",
+						"storeSettings": {
+							"type": "AzureBlobStorageReadSettings",
+							"recursive": true
+						},
+						"formatSettings": {
+							"type": "BinaryReadSettings"
+						}
+					},
+					"sink": {
+						"type": "BinarySink",
+						"storeSettings": {
+							"type": "AzureBlobStorageWriteSettings"
+						}
+					},
+					"enableStaging": false
+				},
+				"inputs": [
+					{
+						"referenceName": "Leela_Generic_Blob_Source",
+						"type": "DatasetReference",
+						"parameters": {
+							"SourceFolderName": {
+								"value": "@pipeline().parameters.SourceFolder",
+								"type": "Expression"
+							},
+							"SourceFileName": {
+								"value": "@pipeline().parameters.SourceFileName",
+								"type": "Expression"
+							}
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "Leela_Generic_Blob_Target",
+						"type": "DatasetReference",
+						"parameters": {
+							"TargetFolder": {
+								"value": "@pipeline().parameters.TargetFolder",
+								"type": "Expression"
+							},
+							"TargetFileName": {
+								"value": "@pipeline().parameters.TargetFileName",
+								"type": "Expression"
+							}
+						}
+					}
+				]
+			}
+		],
+		"parameters": {
+			"SourceFolder": {
+				"type": "string"
+			},
+			"TargetFolder": {
+				"type": "string"
+			},
+			"SourceFileName": {
+				"type": "string"
+			},
+			"TargetFileName": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"lastPublishTime": "2022-04-09T10:11:26Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

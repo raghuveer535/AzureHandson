@@ -1,0 +1,32 @@
+{
+	"name": "Leela_CSV2DB_TEST_LS_DS",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "Leela_CSV2DB_TEST_LS",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "ExtraData.csv",
+				"folderPath": "Leela",
+				"container": "leelablobcontainer"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"type": "String"
+			},
+			{
+				"type": "String"
+			}
+		]
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

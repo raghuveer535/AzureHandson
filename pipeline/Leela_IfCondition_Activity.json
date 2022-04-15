@@ -1,0 +1,152 @@
+{
+	"name": "Leela_IfCondition_Activity",
+	"properties": {
+		"description": "Leela_IfCondition_Activity",
+		"activities": [
+			{
+				"name": "Leela If Condition",
+				"description": "Leela If Condition",
+				"type": "IfCondition",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"expression": {
+						"value": "@bool(pipeline().parameters.Copy2Output)",
+						"type": "Expression"
+					},
+					"ifFalseActivities": [
+						{
+							"name": "Copy data2",
+							"type": "Copy",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "7.00:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"source": {
+									"type": "BinarySource",
+									"storeSettings": {
+										"type": "AzureBlobStorageReadSettings",
+										"recursive": true
+									},
+									"formatSettings": {
+										"type": "BinaryReadSettings"
+									}
+								},
+								"sink": {
+									"type": "BinarySink",
+									"storeSettings": {
+										"type": "AzureBlobStorageWriteSettings"
+									}
+								},
+								"enableStaging": false
+							},
+							"inputs": [
+								{
+									"referenceName": "Leela_Generic_Blob_Source",
+									"type": "DatasetReference",
+									"parameters": {
+										"SourceFolderName": "Leela",
+										"SourceFileName": "Leela.txt"
+									}
+								}
+							],
+							"outputs": [
+								{
+									"referenceName": "Leela_Generic_Blob_Target",
+									"type": "DatasetReference",
+									"parameters": {
+										"TargetFolder": {
+											"value": "@pipeline().parameters.Output2Folder",
+											"type": "Expression"
+										},
+										"TargetFileName": "Leela_Copy2.txt"
+									}
+								}
+							]
+						}
+					],
+					"ifTrueActivities": [
+						{
+							"name": "Copy data1",
+							"type": "Copy",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "7.00:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"source": {
+									"type": "BinarySource",
+									"storeSettings": {
+										"type": "AzureBlobStorageReadSettings",
+										"recursive": true
+									},
+									"formatSettings": {
+										"type": "BinaryReadSettings"
+									}
+								},
+								"sink": {
+									"type": "BinarySink",
+									"storeSettings": {
+										"type": "AzureBlobStorageWriteSettings"
+									}
+								},
+								"enableStaging": false
+							},
+							"inputs": [
+								{
+									"referenceName": "Leela_Generic_Blob_Source",
+									"type": "DatasetReference",
+									"parameters": {
+										"SourceFolderName": "Leela",
+										"SourceFileName": "Leela.txt"
+									}
+								}
+							],
+							"outputs": [
+								{
+									"referenceName": "Leela_Generic_Blob_Target",
+									"type": "DatasetReference",
+									"parameters": {
+										"TargetFolder": {
+											"value": "@pipeline().parameters.Output1Folder",
+											"type": "Expression"
+										},
+										"TargetFileName": "Leela_copy1.txt"
+									}
+								}
+							]
+						}
+					]
+				}
+			}
+		],
+		"parameters": {
+			"Copy2Output": {
+				"type": "string",
+				"defaultValue": "true"
+			},
+			"Output1Folder": {
+				"type": "string",
+				"defaultValue": "Output1"
+			},
+			"Output2Folder": {
+				"type": "string",
+				"defaultValue": "Output2"
+			}
+		},
+		"annotations": [],
+		"lastPublishTime": "2022-04-10T09:34:48Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

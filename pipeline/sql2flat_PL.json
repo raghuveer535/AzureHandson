@@ -1,0 +1,36 @@
+{
+	"name": "sql2flat_PL",
+	"properties": {
+		"description": "sql2flat_PL",
+		"activities": [
+			{
+				"name": "leela_sqldatabaselookup",
+				"type": "Lookup",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "AzureSqlSource",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"dataset": {
+						"referenceName": "AzureSqlTable1",
+						"type": "DatasetReference"
+					},
+					"firstRowOnly": false
+				}
+			}
+		],
+		"annotations": [],
+		"lastPublishTime": "2022-03-28T07:32:53Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

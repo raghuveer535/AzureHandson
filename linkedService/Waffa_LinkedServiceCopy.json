@@ -1,0 +1,17 @@
+{
+	"name": "Waffa_LinkedServiceCopy",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"description": "Waffa_LinkedServiceCopy",
+		"annotations": [],
+		"type": "AzureBlobStorage",
+		"typeProperties": {
+			"connectionString": "Server=tcp:myserver.database.windows.net,1433;Database=@{linkedService().DBName};User ID=user;Password=fake;Trusted_Connection=False;Encrypt=True;Connection Timeout=30"
+		},
+		"parameters": {
+			"DBName": {
+				"type": "String"
+			}
+		}
+	}
+}
