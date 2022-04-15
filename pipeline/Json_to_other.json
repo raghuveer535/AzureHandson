@@ -20,7 +20,8 @@
 						"storeSettings": {
 							"type": "AzureBlobStorageReadSettings",
 							"recursive": true,
-							"enablePartitionDiscovery": false
+							"enablePartitionDiscovery": false,
+							"prefix": ""
 						},
 						"formatSettings": {
 							"type": "JsonReadSettings"
@@ -49,26 +50,41 @@
 							{
 								"source": {
 									"path": "$['data'][0]['id']"
+								},
+								"sink": {
+									"name": "id"
 								}
 							},
 							{
 								"source": {
 									"path": "$['data'][0]['employee_name']"
+								},
+								"sink": {
+									"name": "ename"
 								}
 							},
 							{
 								"source": {
 									"path": "$['data'][0]['employee_salary']"
+								},
+								"sink": {
+									"name": "esalary"
 								}
 							},
 							{
 								"source": {
 									"path": "$['data'][0]['employee_age']"
+								},
+								"sink": {
+									"name": "age"
 								}
 							},
 							{
 								"source": {
 									"path": "$['data'][0]['profile_image']"
+								},
+								"sink": {
+									"name": "profile"
 								}
 							},
 							{
