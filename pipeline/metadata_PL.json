@@ -49,7 +49,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"expression": {
-						"value": "@activity('Get Metadata1').output.lastModified",
+						"value": "@activity('Get Metadata1').output.exists",
 						"type": "Expression"
 					},
 					"ifFalseActivities": [
@@ -60,7 +60,10 @@
 							"userProperties": [],
 							"typeProperties": {
 								"variableName": "b",
-								"value": "20"
+								"value": {
+									"value": "@activity('Get Metadata1').output.size",
+									"type": "Expression"
+								}
 							}
 						}
 					],
@@ -72,7 +75,10 @@
 							"userProperties": [],
 							"typeProperties": {
 								"variableName": "a",
-								"value": "10"
+								"value": {
+									"value": "@activity('Get Metadata1').output.lastModified",
+									"type": "Expression"
+								}
 							}
 						}
 					]
