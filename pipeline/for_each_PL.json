@@ -9,10 +9,10 @@
 				"userProperties": [],
 				"typeProperties": {
 					"items": {
-						"value": "@activity('copyForEach').output",
+						"value": "@pipeline().parameters.OutPut",
 						"type": "Expression"
 					},
-					"batchCount": 1,
+					"batchCount": 3,
 					"activities": [
 						{
 							"name": "copyForEach",
