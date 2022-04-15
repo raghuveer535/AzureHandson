@@ -1,5 +1,5 @@
 {
-	"name": "Binary1",
+	"name": "AllCountriesTxt",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "AzureBlobStorage1",
