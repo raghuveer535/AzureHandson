@@ -94,7 +94,7 @@
 		],
 		"parameters": {
 			"FileExists": {
-				"type": "string",
+				"type": "bool",
 				"defaultValue": "False"
 			}
 		},
