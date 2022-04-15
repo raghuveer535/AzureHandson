@@ -15,26 +15,37 @@
 					"batchCount": 1,
 					"activities": [
 						{
-							"name": "Script1",
-							"type": "Script",
+							"name": "If Condition1",
+							"type": "IfCondition",
 							"dependsOn": [],
-							"policy": {
-								"timeout": "7.00:00:00",
-								"retry": 0,
-								"retryIntervalInSeconds": 30,
-								"secureOutput": false,
-								"secureInput": false
-							},
 							"userProperties": [],
-							"linkedServiceName": {
-								"referenceName": "AzureSqlDatabaseLinkedservice",
-								"type": "LinkedServiceReference"
-							},
 							"typeProperties": {
-								"scripts": [
+								"expression": {
+									"value": "@equals(item(),5)",
+									"type": "Expression"
+								},
+								"ifFalseActivities": [
 									{
-										"type": "Query",
-										"text": "select * from emp;"
+										"name": "Set variable2",
+										"type": "SetVariable",
+										"dependsOn": [],
+										"userProperties": [],
+										"typeProperties": {
+											"variableName": "itemVar",
+											"value": "00"
+										}
+									}
+								],
+								"ifTrueActivities": [
+									{
+										"name": "Set variable1",
+										"type": "SetVariable",
+										"dependsOn": [],
+										"userProperties": [],
+										"typeProperties": {
+											"variableName": "itemVar",
+											"value": "3"
+										}
 									}
 								]
 							}
@@ -58,6 +69,11 @@
 					9,
 					10
 				]
+			}
+		},
+		"variables": {
+			"itemVar": {
+				"type": "String"
 			}
 		},
 		"annotations": []
