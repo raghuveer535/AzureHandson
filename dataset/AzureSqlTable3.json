@@ -2,8 +2,14 @@
 	"name": "AzureSqlTable3",
 	"properties": {
 		"linkedServiceName": {
-			"referenceName": "AzureSqlDatabase1",
-			"type": "LinkedServiceReference"
+			"referenceName": "Generic_SQL_LinkService",
+			"type": "LinkedServiceReference",
+			"parameters": {
+				"ServerName": "rgdbserver1001.database.windows.net",
+				"DbName": "dbraghu1001",
+				"UserName": "admin1001",
+				"Password": "Admin123"
+			}
 		},
 		"parameters": {
 			"table": {
