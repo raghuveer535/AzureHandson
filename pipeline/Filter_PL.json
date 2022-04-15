@@ -49,6 +49,26 @@
 									}
 								]
 							}
+						},
+						{
+							"name": "Set variable3",
+							"type": "SetVariable",
+							"dependsOn": [
+								{
+									"activity": "If Condition1",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "itemVar",
+								"value": {
+									"value": "@add(100,int(item()))",
+									"type": "Expression"
+								}
+							}
 						}
 					]
 				}
