@@ -15,10 +15,12 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobStorageLocation",
+				"fileName": "raghu.txt",
 				"folderPath": {
 					"value": "@dataset().outputFolder",
 					"type": "Expression"
-				}
+				},
+				"container": "sablob1001"
 			}
 		}
 	}
