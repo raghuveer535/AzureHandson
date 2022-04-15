@@ -3,7 +3,7 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "Copy data1",
+				"name": "REST_TO_JSON",
 				"type": "Copy",
 				"dependsOn": [],
 				"policy": {
@@ -47,8 +47,71 @@
 						"type": "DatasetReference"
 					}
 				]
+			},
+			{
+				"name": "JOSN_TO_CSV",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "REST_TO_JSON",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "JsonSource",
+						"storeSettings": {
+							"type": "AzureBlobStorageReadSettings",
+							"recursive": true,
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "JsonReadSettings"
+						}
+					},
+					"sink": {
+						"type": "AzureSqlSink",
+						"writeBehavior": "insert",
+						"sqlWriterUseTableLock": false
+					},
+					"enableStaging": false
+				},
+				"inputs": [
+					{
+						"referenceName": "Json1",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "AzureSqlTable3",
+						"type": "DatasetReference",
+						"parameters": {
+							"table": {
+								"value": "@variables('fileName')",
+								"type": "Expression"
+							}
+						}
+					}
+				]
 			}
 		],
+		"variables": {
+			"fileName": {
+				"type": "String",
+				"defaultValue": "sample.json"
+			}
+		},
 		"annotations": []
 	}
 }
