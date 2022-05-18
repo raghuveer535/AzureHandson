@@ -1,0 +1,116 @@
+{
+	"name": "PL_Src_to_Tgt",
+	"properties": {
+		"activities": [
+			{
+				"name": "Copy data1",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "DelimitedTextSource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true,
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "DelimitedTextReadSettings"
+						}
+					},
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "DS_Gen_Datalake",
+						"type": "DatasetReference",
+						"parameters": {
+							"ContainerName": {
+								"value": "@pipeline().parameters.ContName",
+								"type": "Expression"
+							},
+							"FolderName": {
+								"value": "@pipeline().parameters.SrcFolderName",
+								"type": "Expression"
+							},
+							"FileName": {
+								"value": "@pipeline().parameters.SrcFileName",
+								"type": "Expression"
+							}
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "DS_Gen_Datalake",
+						"type": "DatasetReference",
+						"parameters": {
+							"ContainerName": {
+								"value": "@pipeline().parameters.ContName",
+								"type": "Expression"
+							},
+							"FolderName": {
+								"value": "@pipeline().parameters.TgtFolderName",
+								"type": "Expression"
+							},
+							"FileName": {
+								"value": "@pipeline().parameters.TgtFileName",
+								"type": "Expression"
+							}
+						}
+					}
+				]
+			}
+		],
+		"parameters": {
+			"ContName": {
+				"type": "string",
+				"defaultValue": "adlscont"
+			},
+			"SrcFolderName": {
+				"type": "string",
+				"defaultValue": "SourceFolder"
+			},
+			"SrcFileName": {
+				"type": "string",
+				"defaultValue": "Product.csv"
+			},
+			"TgtFolderName": {
+				"type": "string",
+				"defaultValue": "TargetFolder"
+			},
+			"TgtFileName": {
+				"type": "string",
+				"defaultValue": "Product_R.csv"
+			}
+		},
+		"annotations": []
+	}
+}
