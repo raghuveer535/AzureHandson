@@ -93,28 +93,36 @@
 		],
 		"parameters": {
 			"targetCont": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "adlscont"
 			},
 			"targetFolder": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "SouurceFolder"
 			},
 			"targetFile": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "Product.csv"
 			},
 			"table": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "product"
 			},
 			"server": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "dudmfct.database.windows.net"
 			},
 			"database": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "well_fct"
 			},
 			"user": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "admin1001"
 			},
 			"pwd": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "Admin@123"
 			}
 		},
 		"annotations": []
