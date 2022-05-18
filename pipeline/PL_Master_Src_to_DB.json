@@ -82,11 +82,22 @@
 							}
 						},
 						{
-							"name": "PL_Master_Src_to_DB",
+							"name": "PL_DL_to_DB",
 							"type": "ExecutePipeline",
-							"dependsOn": [],
+							"dependsOn": [
+								{
+									"activity": "PL_Src_to_Tgt",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
 							"userProperties": [],
 							"typeProperties": {
+								"pipeline": {
+									"referenceName": "PL_DL_to_DB",
+									"type": "PipelineReference"
+								},
 								"waitOnCompletion": true
 							}
 						}
