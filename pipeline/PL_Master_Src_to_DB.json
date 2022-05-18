@@ -17,6 +17,7 @@
 				"typeProperties": {
 					"source": {
 						"type": "AzureSqlSource",
+						"sqlReaderQuery": "exec getmeta 1;",
 						"queryTimeout": "02:00:00",
 						"partitionOption": "None"
 					},
@@ -62,7 +63,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"items": {
-						"value": "@activity('LkpParamSet').output.count",
+						"value": "@activity('LkpParamSet').output.value",
 						"type": "Expression"
 					},
 					"isSequential": false,
@@ -78,7 +79,26 @@
 									"referenceName": "PL_Src_to_Tgt",
 									"type": "PipelineReference"
 								},
-								"waitOnCompletion": true
+								"waitOnCompletion": true,
+								"parameters": {
+									"ContName": "adlscont",
+									"SrcFolderName": {
+										"value": "@item().sourcefolder",
+										"type": "Expression"
+									},
+									"SrcFileName": {
+										"value": "@item().Sourcefilename",
+										"type": "Expression"
+									},
+									"TgtFolderName": {
+										"value": "@item().targetfolder",
+										"type": "Expression"
+									},
+									"TgtFileName": {
+										"value": "@item().targetfilename",
+										"type": "Expression"
+									}
+								}
 							}
 						},
 						{
@@ -98,7 +118,35 @@
 									"referenceName": "PL_DL_to_DB",
 									"type": "PipelineReference"
 								},
-								"waitOnCompletion": true
+								"waitOnCompletion": true,
+								"parameters": {
+									"targetCont": "adlscont",
+									"targetFolder": {
+										"value": "@item().targetfolder",
+										"type": "Expression"
+									},
+									"targetFile": "@item.targetfilename",
+									"table": {
+										"value": "@item().table_name",
+										"type": "Expression"
+									},
+									"server": {
+										"value": "@pipeline().parameters.Server",
+										"type": "Expression"
+									},
+									"database": {
+										"value": "@pipeline().parameters.Database",
+										"type": "Expression"
+									},
+									"user": {
+										"value": "@pipeline().parameters.user",
+										"type": "Expression"
+									},
+									"pwd": {
+										"value": "@pipeline().parameters.pwd",
+										"type": "Expression"
+									}
+								}
 							}
 						}
 					]
