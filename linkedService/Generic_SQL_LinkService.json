@@ -4,13 +4,16 @@
 	"properties": {
 		"parameters": {
 			"ServerName": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "dudmfct.database.windows.net"
 			},
 			"DbName": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "WELL_FCT"
 			},
 			"UserName": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "admin1001"
 			},
 			"Password": {
 				"type": "string"
@@ -20,6 +23,10 @@
 		"type": "AzureSqlDatabase",
 		"typeProperties": {
 			"connectionString": "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=@{linkedService().ServerName};Initial Catalog=@{linkedService().DbName};User ID=@{linkedService().UserName};Password=@{linkedService().Password}"
+		},
+		"connectVia": {
+			"referenceName": "AutoResolveIntegrationRuntime",
+			"type": "IntegrationRuntimeReference"
 		}
 	}
 }
