@@ -1,0 +1,9 @@
+{
+	"name": "dfUltra1001",
+	"location": "eastus",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "420d9589-f8ff-4119-8073-f4734b5a7ac8",
+		"tenantId": "c1156c2f-a3bb-4fc4-ac07-3eab96da8d10"
+	}
+}
