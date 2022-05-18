@@ -98,7 +98,7 @@
 			},
 			"targetFolder": {
 				"type": "string",
-				"defaultValue": "SouurceFolder"
+				"defaultValue": "SourceFolder"
 			},
 			"targetFile": {
 				"type": "string",
