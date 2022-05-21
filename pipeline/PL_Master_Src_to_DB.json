@@ -17,7 +17,7 @@
 				"typeProperties": {
 					"source": {
 						"type": "AzureSqlSource",
-						"sqlReaderQuery": "select sourcefilename,sourcefolder,targetfilename,targetfolder,loadorder from paramset",
+						"sqlReaderQuery": "select sourcefolder,sourcefilename,targetfolder,targetfilename,table_name,loadorder from paramset",
 						"queryTimeout": "02:00:00",
 						"partitionOption": "None"
 					},
@@ -87,7 +87,7 @@
 										"type": "Expression"
 									},
 									"SrcFileName": {
-										"value": "@item().Sourcefilename",
+										"value": "@item().sourcefilename",
 										"type": "Expression"
 									},
 									"TgtFolderName": {
