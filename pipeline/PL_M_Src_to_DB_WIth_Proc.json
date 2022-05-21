@@ -60,8 +60,8 @@
 				}
 			},
 			{
-				"name": "Set variable1",
-				"type": "SetVariable",
+				"name": "PL_Src_to_Tgt",
+				"type": "ExecutePipeline",
 				"dependsOn": [
 					{
 						"activity": "LkpParamSet",
@@ -72,10 +72,78 @@
 				],
 				"userProperties": [],
 				"typeProperties": {
-					"variableName": "arr",
-					"value": {
-						"value": "@activity('LkpParamSet').output.value[0][1]",
-						"type": "Expression"
+					"pipeline": {
+						"referenceName": "PL_Src_to_Tgt",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true,
+					"parameters": {
+						"SrcFolderName": {
+							"value": "@array(activity('LkpParamSet').output.value)[0].sourcefolder",
+							"type": "Expression"
+						},
+						"SrcFileName": {
+							"value": "@array(activity('LkpParamSet').output.value)[0].sourcefilename",
+							"type": "Expression"
+						},
+						"TgtFolderName": {
+							"value": "@array(activity('LkpParamSet').output.value)[0].targetfolder",
+							"type": "Expression"
+						},
+						"TgtFileName": {
+							"value": "@array(activity('LkpParamSet').output.value)[0].targetfilename",
+							"type": "Expression"
+						}
+					}
+				}
+			},
+			{
+				"name": "PL_DL_to_DB",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "PL_Src_to_Tgt",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "PL_DL_to_DB",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true,
+					"parameters": {
+						"targetFolder": {
+							"value": "@array(activity('PL_Src_to_Tgt').output)[0].targetfolder",
+							"type": "Expression"
+						},
+						"targetFile": {
+							"value": "@array(activity('LkpParamSet').output.value)[0].targetfilename",
+							"type": "Expression"
+						},
+						"table": {
+							"value": "@array(activity('LkpParamSet').output.value)[0].table_name",
+							"type": "Expression"
+						},
+						"server": {
+							"value": "@pipeline().parameters.Server",
+							"type": "Expression"
+						},
+						"database": {
+							"value": "@pipeline().parameters.Database",
+							"type": "Expression"
+						},
+						"user": {
+							"value": "@pipeline().parameters.user",
+							"type": "Expression"
+						},
+						"pwd": {
+							"value": "@pipeline().parameters.pwd",
+							"type": "Expression"
+						}
 					}
 				}
 			}
