@@ -17,7 +17,7 @@
 				"typeProperties": {
 					"source": {
 						"type": "AzureSqlSource",
-						"sqlReaderQuery": "exec getmeta 1;",
+						"sqlReaderQuery": "select sourcefilename,sourcefolder,targetfilename,targetfolder,loadorder from paramset",
 						"queryTimeout": "02:00:00",
 						"partitionOption": "None"
 					},
@@ -125,7 +125,10 @@
 										"value": "@item().targetfolder",
 										"type": "Expression"
 									},
-									"targetFile": "@item.targetfilename",
+									"targetFile": {
+										"value": "@item.targetfilename",
+										"type": "Expression"
+									},
 									"table": {
 										"value": "@item().table_name",
 										"type": "Expression"
