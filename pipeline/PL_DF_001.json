@@ -1,0 +1,142 @@
+{
+	"name": "PL_DF_001",
+	"properties": {
+		"activities": [
+			{
+				"name": "dbDetails",
+				"type": "Lookup",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "JsonSource",
+						"storeSettings": {
+							"type": "AzureBlobStorageReadSettings",
+							"recursive": true,
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "JsonReadSettings"
+						}
+					},
+					"dataset": {
+						"referenceName": "Json2",
+						"type": "DatasetReference"
+					}
+				}
+			},
+			{
+				"name": "DF001",
+				"type": "ExecuteDataFlow",
+				"dependsOn": [
+					{
+						"activity": "dbDetails",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "1.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"dataflow": {
+						"referenceName": "dataflow1",
+						"type": "DataFlowReference",
+						"datasetParameters": {
+							"Product": {
+								"pmTableName": "Product",
+								"pmServerName": {
+									"value": "@array(activity('dbDetails').output.firstRow.database)[0].pmServerName",
+									"type": "Expression"
+								},
+								"pmDbName": {
+									"value": "@array(activity('dbDetails').output.firstRow.database)[0].pmDbName",
+									"type": "Expression"
+								},
+								"pmUserName": {
+									"value": "@array(activity('dbDetails').output.firstRow.database)[0].pmUserName",
+									"type": "Expression"
+								},
+								"pmPassword": {
+									"value": "@array(activity('dbDetails').output.firstRow.database)[0].pmPassword",
+									"type": "Expression"
+								}
+							},
+							"ProductCategory": {
+								"ContainerName": "adlscont",
+								"FolderName": "SourceFolder",
+								"FileName": "ProductCategory.csv"
+							},
+							"DBWrite": {
+								"pmTableName": "ProductCatJoin",
+								"pmServerName": {
+									"value": "@array(activity('dbDetails').output.firstRow.database)[0].pmServerName",
+									"type": "Expression"
+								},
+								"pmDbName": {
+									"value": "@array(activity('dbDetails').output.firstRow.database)[0].pmDbName",
+									"type": "Expression"
+								},
+								"pmUserName": {
+									"value": "@array(activity('dbDetails').output.firstRow.database)[0].pmUserName",
+									"type": "Expression"
+								},
+								"pmPassword": {
+									"value": "@array(activity('dbDetails').output.firstRow.database)[0].pmPassword",
+									"type": "Expression"
+								}
+							}
+						},
+						"linkedServiceParameters": {
+							"DBWrite": {
+								"schemaLinkedService": {
+									"pmTableName": "ProductCatJoin",
+									"pmServerName": {
+										"value": "@array(activity('dbDetails').output.firstRow.database)[0].pmServerName",
+										"type": "Expression"
+									},
+									"pmDbName": {
+										"value": "@array(activity('dbDetails').output.firstRow.database)[0].pmDbName",
+										"type": "Expression"
+									},
+									"pmUserName": {
+										"value": "@array(activity('dbDetails').output.firstRow.database)[0].pmUserName",
+										"type": "Expression"
+									},
+									"pmPassword": {
+										"value": "@array(activity('dbDetails').output.firstRow.database)[0].pmPassword",
+										"type": "Expression"
+									}
+								}
+							}
+						}
+					},
+					"compute": {
+						"coreCount": 8,
+						"computeType": "General"
+					},
+					"traceLevel": "Fine"
+				}
+			}
+		],
+		"variables": {
+			"x": {
+				"type": "String"
+			}
+		},
+		"annotations": []
+	}
+}
