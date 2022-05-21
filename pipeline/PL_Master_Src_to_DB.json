@@ -66,8 +66,7 @@
 						"value": "@activity('LkpParamSet').output.value",
 						"type": "Expression"
 					},
-					"isSequential": false,
-					"batchCount": 1,
+					"isSequential": true,
 					"activities": [
 						{
 							"name": "PL_Src_to_Tgt",
