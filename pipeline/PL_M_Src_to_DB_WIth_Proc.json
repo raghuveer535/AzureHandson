@@ -117,7 +117,7 @@
 					"waitOnCompletion": true,
 					"parameters": {
 						"targetFolder": {
-							"value": "@array(activity('PL_Src_to_Tgt').output)[0].targetfolder",
+							"value": "@array(activity('LkpParamSet').output)[0].targetfolder",
 							"type": "Expression"
 						},
 						"targetFile": {
