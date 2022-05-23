@@ -1,0 +1,14 @@
+[
+{"Name":"Leela",
+"Education":[{"Qualification":"B.Sc",
+"Year":2004},
+{"Qualification":"MCA",
+"Year":2007}]
+},
+{"Name":"Srividya",
+"Education":[{"Qualification":"B.Tech",
+"Year":2004},
+{"Qualification":"M.Tech",
+"Year":2007}]
+}
+]
