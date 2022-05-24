@@ -84,7 +84,14 @@
 												"referenceName": "AutoResolveIntegrationRuntime",
 												"type": "IntegrationRuntimeReference"
 											},
-											"method": "POST"
+											"method": "POST",
+											"headers": {
+												"Content-Type": "application/json"
+											},
+											"body": {
+												"value": "{ \n   \"filename\": \"bkpf.csv\",\n   \"reason\": \"not found\",\n   \"email to\":\"raghu4etl@gmail.com\",\n   \"subject\": \"file not found\" \n}",
+												"type": "Expression"
+											}
 										}
 									}
 								],
