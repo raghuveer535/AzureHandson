@@ -62,7 +62,7 @@
 							"userProperties": [],
 							"typeProperties": {
 								"expression": {
-									"value": "@greater(indexof(item().name,'bkpf'),0)",
+									"value": "@equals(indexof(item().name,'bkpf'),0)",
 									"type": "Expression"
 								},
 								"ifFalseActivities": [
