@@ -11,7 +11,7 @@
 			"location": {
 				"type": "AzureBlobStorageLocation",
 				"folderPath": "sablob",
-				"container": "storageblob1001 "
+				"container": "storageblob1001"
 			},
 			"columnDelimiter": ",",
 			"escapeChar": "\\",
