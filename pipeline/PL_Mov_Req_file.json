@@ -89,7 +89,7 @@
 												"Content-Type": "application/json"
 											},
 											"body": {
-												"value": "{ \n   \"filename\": \"bkpf.csv\",\n   \"reason\": \"not found\",\n   \"email to\":\"raghu4etl@gmail.com\",\n   \"subject\": \"file not found\" \n}",
+												"value": "{ \n   \"filename\": activity('GetFileInfoCelonis').output.childItems[0].name,\n   \"reason\": \"not found\",\n   \"email to\":\"raghu4etl@gmail.com\",\n   \"subject\": \"file not found\" \n}",
 												"type": "Expression"
 											}
 										}
