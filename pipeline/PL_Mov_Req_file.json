@@ -149,7 +149,7 @@
 													"ContainerName": "adlscont",
 													"FolderName": "CelonisETLChallenge",
 													"FileName": {
-														"value": "@activity('GetFileInfoCelonis').output.itemName",
+														"value": "@activity('GetFileInfoCelonis').output.childItems[0].name",
 														"type": "Expression"
 													}
 												}
