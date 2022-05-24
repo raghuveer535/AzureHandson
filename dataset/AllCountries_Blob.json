@@ -2,7 +2,7 @@
 	"name": "AllCountries_Blob",
 	"properties": {
 		"linkedServiceName": {
-			"referenceName": "AzureBlobStorage1",
+			"referenceName": "LS_Blob",
 			"type": "LinkedServiceReference"
 		},
 		"annotations": [],
@@ -10,8 +10,8 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobStorageLocation",
-				"fileName": "AllCountries.txt",
-				"container": "contbank"
+				"folderPath": "sablob",
+				"container": "storageblob1001 "
 			},
 			"columnDelimiter": ",",
 			"escapeChar": "\\",
