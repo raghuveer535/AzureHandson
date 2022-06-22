@@ -32,9 +32,9 @@
 			],
 			"scriptLines": [
 				"source(output(",
-				"          empid as string,",
+				"          empid as integer,",
 				"          ename as string,",
-				"          sal as string",
+				"          sal as integer",
 				"     ),",
 				"     allowSchemaDrift: true,",
 				"     validateSchema: false,",
