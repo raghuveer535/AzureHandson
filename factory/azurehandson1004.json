@@ -1,0 +1,9 @@
+{
+	"name": "azurehandson1004",
+	"location": "eastus",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "032ab0f0-94bd-43e7-8b7d-fe38aca13be2",
+		"tenantId": "b1be2ce5-f1fa-4d2e-9bd0-b8ce9e7fa035"
+	}
+}
