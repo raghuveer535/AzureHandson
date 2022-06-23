@@ -1,0 +1,48 @@
+{
+	"name": "ds_emp",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_AzureSqlDatabase1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "empsurrkey",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "empid",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "ename",
+				"type": "varchar"
+			},
+			{
+				"name": "sal",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "fromdate",
+				"type": "date"
+			},
+			{
+				"name": "todate",
+				"type": "date"
+			},
+			{
+				"name": "isactive",
+				"type": "char"
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "emp"
+		}
+	}
+}

@@ -1,0 +1,66 @@
+{
+	"name": "dataflow2",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "DelimitedText1",
+						"type": "DatasetReference"
+					},
+					"name": "empsrc"
+				},
+				{
+					"dataset": {
+						"referenceName": "ds_emp",
+						"type": "DatasetReference"
+					},
+					"name": "targetref"
+				}
+			],
+			"sinks": [],
+			"transformations": [
+				{
+					"name": "selectEmp"
+				},
+				{
+					"name": "join1"
+				}
+			],
+			"scriptLines": [
+				"source(output(",
+				"          empid as short,",
+				"          ename as string,",
+				"          sal as short",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     inferDriftedColumnTypes: true,",
+				"     limit: 100,",
+				"     ignoreNoFilesFound: false) ~> empsrc",
+				"source(output(",
+				"          maxsurrkey as integer",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     limit: 100,",
+				"     isolationLevel: 'READ_UNCOMMITTED',",
+				"     query: 'select max(empsurrkey) maxsurrkey from emp',",
+				"     format: 'query') ~> targetref",
+				"empsrc select(mapColumn(",
+				"          empid,",
+				"          ename,",
+				"          sal",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> selectEmp",
+				"selectEmp, targetref join(empid == maxsurrkey,",
+				"     joinType:'outer',",
+				"     matchType:'exact',",
+				"     ignoreSpaces: false,",
+				"     broadcast: 'auto')~> join1"
+			]
+		}
+	}
+}
