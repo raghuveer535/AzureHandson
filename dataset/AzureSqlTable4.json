@@ -41,6 +41,7 @@
 			}
 		],
 		"typeProperties": {
+			"schema": "dbo",
 			"table": "employee"
 		}
 	}

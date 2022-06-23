@@ -57,6 +57,7 @@
 				"     upsertable:true,",
 				"     keys:['empid'],",
 				"     format: 'table',",
+				"     preSQLs:['delete from employee'],",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true,",
 				"     errorHandlingOption: 'stopOnFirstError') ~> sink1"
