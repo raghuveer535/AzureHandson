@@ -26,20 +26,6 @@
 						"type": "DatasetReference"
 					},
 					"name": "sink1"
-				},
-				{
-					"dataset": {
-						"referenceName": "DelimitedText2",
-						"type": "DatasetReference"
-					},
-					"name": "sink2"
-				},
-				{
-					"dataset": {
-						"referenceName": "DelimitedText2",
-						"type": "DatasetReference"
-					},
-					"name": "sink3"
 				}
 			],
 			"transformations": [
@@ -52,12 +38,12 @@
 				},
 				{
 					"name": "lookup1"
-				},
-				{
-					"name": "split1"
 				}
 			],
 			"scriptLines": [
+				"parameters{",
+				"     filename as string",
+				"}",
 				"source(output(",
 				"          empid as short,",
 				"          ename as string,",
@@ -89,21 +75,11 @@
 				"     multiple: false,",
 				"     pickup: 'any',",
 				"     broadcast: 'auto')~> lookup1",
-				"lookup1 split(sal  > avg_sal,",
-				"     sal < avg_sal,",
-				"     disjoint: true) ~> split1@(greateravgsal, lesseravgsal, eqavgsal)",
-				"split1@greateravgsal sink(allowSchemaDrift: true,",
+				"lookup1 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     skipDuplicateMapInputs: true,",
-				"     skipDuplicateMapOutputs: true) ~> sink1",
-				"split1@lesseravgsal sink(allowSchemaDrift: true,",
-				"     validateSchema: false,",
-				"     skipDuplicateMapInputs: true,",
-				"     skipDuplicateMapOutputs: true) ~> sink2",
-				"split1@eqavgsal sink(allowSchemaDrift: true,",
-				"     validateSchema: false,",
-				"     skipDuplicateMapInputs: true,",
-				"     skipDuplicateMapOutputs: true) ~> sink3"
+				"     skipDuplicateMapOutputs: true,",
+				"     saveOrder: 1) ~> sink1"
 			]
 		}
 	}
