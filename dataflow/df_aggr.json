@@ -42,8 +42,8 @@
 			],
 			"scriptLines": [
 				"parameters{",
-				"     filename as string ($filename),",
-				"     containername as string ($containername)",
+				"     filename as string,",
+				"     containername as string",
 				"}",
 				"source(output(",
 				"          empid as short,",
@@ -79,8 +79,7 @@
 				"lookup1 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     skipDuplicateMapInputs: true,",
-				"     skipDuplicateMapOutputs: true,",
-				"     saveOrder: 1) ~> sink1"
+				"     skipDuplicateMapOutputs: true) ~> sink1"
 			]
 		}
 	}
