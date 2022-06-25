@@ -29,8 +29,10 @@
 				"          avg_sal = avg(salary),",
 				"          min_sal = min(salary)) ~> maxsal",
 				"maxsal output(mapColumn(",
-				"          each(match(/* All input columns */ true()),",
-				"               /* Input name */ $$ = $$)",
+				"          department,",
+				"          max_salary,",
+				"          avg_sal,",
+				"          min_sal",
 				"     )) ~> output1"
 			]
 		}
