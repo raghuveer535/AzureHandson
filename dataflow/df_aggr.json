@@ -42,8 +42,8 @@
 			],
 			"scriptLines": [
 				"parameters{",
-				"     filename as string,",
-				"     containername as string",
+				"     filename as string ($filename),",
+				"     containername as string ($containername)",
 				"}",
 				"source(output(",
 				"          empid as short,",
