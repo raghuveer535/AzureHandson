@@ -44,6 +44,13 @@
 						"referenceName": "LS_BlobStorage",
 						"type": "LinkedServiceReference"
 					}
+				},
+				{
+					"dataset": {
+						"referenceName": "DS_AZ_Sql",
+						"type": "DatasetReference"
+					},
+					"name": "finalscdtgt"
 				}
 			],
 			"transformations": [
@@ -67,6 +74,9 @@
 				},
 				{
 					"name": "derivedColumn1"
+				},
+				{
+					"name": "alterRow1"
 				}
 			],
 			"scriptLines": [
@@ -80,8 +90,12 @@
 				"     validateSchema: false,",
 				"     inferDriftedColumnTypes: true,",
 				"     ignoreNoFilesFound: false) ~> sourcefile",
-				"source(allowSchemaDrift: true,",
+				"source(output(",
+				"          surr_key as integer",
+				"     ),",
+				"     allowSchemaDrift: true,",
 				"     validateSchema: false,",
+				"     inferDriftedColumnTypes: true,",
 				"     isolationLevel: 'READ_UNCOMMITTED',",
 				"     query: 'select max(empsurrkey) surr_key from emp',",
 				"     format: 'query') ~> selmaxsurrtarget",
@@ -110,12 +124,12 @@
 				"     joinType:'cross',",
 				"     matchType:'exact',",
 				"     ignoreSpaces: false,",
-				"     broadcast: 'auto')~> joinmaxkeydata",
+				"     broadcast: 'off')~> joinmaxkeydata",
 				"joinmaxkeydata, targetSrc join(srcempid == empid,",
 				"     joinType:'left',",
 				"     matchType:'exact',",
 				"     ignoreSpaces: false,",
-				"     broadcast: 'auto')~> joinwithtarget",
+				"     broadcast: 'both')~> joinwithtarget",
 				"joinwithtarget split(srcempid==empid,",
 				"     disjoint: false) ~> keyMatching@(matchingdata, notmatcheced)",
 				"keyMatching@matchingdata, targetSrc join(keyMatching@matchingdata@sal == targetSrc@sal,",
@@ -127,6 +141,7 @@
 				"     disjoint: false) ~> split@(salmatching, salnotmatched)",
 				"split@salmatching derive(isactive = 0,",
 				"          todate = currentDate()) ~> derivedColumn1",
+				"derivedColumn1 alterRow(updateIf(split@salmatching@sal <= surr_key)) ~> alterRow1",
 				"keyMatching@notmatcheced sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     deletable:false,",
@@ -156,7 +171,25 @@
 				"          empid = srcempid,",
 				"          ename = srcename,",
 				"          sal = srcsal",
-				"     )) ~> sink2"
+				"     )) ~> sink2",
+				"alterRow1 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     deletable:false,",
+				"     insertable:false,",
+				"     updateable:true,",
+				"     upsertable:false,",
+				"     keys:['empid'],",
+				"     format: 'table',",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     errorHandlingOption: 'stopOnFirstError',",
+				"     mapColumn(",
+				"          empid = srcempid,",
+				"          ename = srcename,",
+				"          sal = srcsal,",
+				"          todate,",
+				"          isactive",
+				"     )) ~> finalscdtgt"
 			]
 		}
 	}
