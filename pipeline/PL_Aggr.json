@@ -26,7 +26,8 @@
 						},
 						"datasetParameters": {
 							"sink1": {
-								"filename": "eq_file.csv"
+								"filename": "eq_file.csv",
+								"contname": "sablob1001"
 							}
 						}
 					},
