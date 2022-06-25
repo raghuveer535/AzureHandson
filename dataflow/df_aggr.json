@@ -42,7 +42,8 @@
 			],
 			"scriptLines": [
 				"parameters{",
-				"     filename as string",
+				"     filename as string,",
+				"     containername as string",
 				"}",
 				"source(output(",
 				"          empid as short,",
