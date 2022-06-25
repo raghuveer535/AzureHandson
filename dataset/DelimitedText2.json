@@ -14,7 +14,8 @@
 		"type": "DelimitedText",
 		"typeProperties": {
 			"location": {
-				"type": "AzureBlobStorageLocation"
+				"type": "AzureBlobStorageLocation",
+				"container": "sablob1001"
 			},
 			"columnDelimiter": ",",
 			"escapeChar": "\\",
