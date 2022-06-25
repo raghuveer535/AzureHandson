@@ -58,11 +58,6 @@
 				}
 			],
 			"scriptLines": [
-				"parameters{",
-				"     eq_file as string,",
-				"     greater_file as string,",
-				"     lesser_file as string",
-				"}",
 				"source(output(",
 				"          empid as short,",
 				"          ename as string,",
