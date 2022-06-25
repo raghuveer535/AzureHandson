@@ -7,10 +7,12 @@
 		},
 		"parameters": {
 			"containername": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "sablob"
 			},
 			"filename": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "sample.csv"
 			}
 		},
 		"annotations": [],
