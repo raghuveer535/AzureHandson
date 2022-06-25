@@ -27,18 +27,6 @@
 								"value": "'@{pipeline().parameters.cont1}'",
 								"type": "Expression"
 							}
-						},
-						"datasetParameters": {
-							"sink1": {
-								"filename": {
-									"value": "@pipeline().parameters.file1",
-									"type": "Expression"
-								},
-								"contname": {
-									"value": "@pipeline().parameters.cont1",
-									"type": "Expression"
-								}
-							}
 						}
 					},
 					"integrationRuntime": {
