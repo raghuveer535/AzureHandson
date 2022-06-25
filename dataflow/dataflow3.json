@@ -1,0 +1,119 @@
+{
+	"name": "dataflow3",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "DelimitedText1",
+						"type": "DatasetReference"
+					},
+					"name": "sourcefile"
+				},
+				{
+					"dataset": {
+						"referenceName": "DS_AZ_Sql",
+						"type": "DatasetReference"
+					},
+					"name": "selmaxsurrtarget"
+				},
+				{
+					"dataset": {
+						"referenceName": "DS_AZ_Sql",
+						"type": "DatasetReference"
+					},
+					"name": "targetSrc"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "DS_AZ_Sql",
+						"type": "DatasetReference"
+					},
+					"name": "sink1"
+				}
+			],
+			"transformations": [
+				{
+					"name": "selectrequired"
+				},
+				{
+					"name": "joinmaxkeydata"
+				},
+				{
+					"name": "joinwithtarget"
+				},
+				{
+					"name": "keyMatching"
+				}
+			],
+			"scriptLines": [
+				"source(output(",
+				"          empid as short,",
+				"          ename as string,",
+				"          sal as short,",
+				"          dept as short",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     inferDriftedColumnTypes: true,",
+				"     ignoreNoFilesFound: false) ~> sourcefile",
+				"source(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     isolationLevel: 'READ_UNCOMMITTED',",
+				"     query: 'select max(empsurrkey) surr_key from emp',",
+				"     format: 'query') ~> selmaxsurrtarget",
+				"source(output(",
+				"          empsurrkey as integer,",
+				"          empid as integer,",
+				"          ename as string,",
+				"          sal as integer,",
+				"          fromdate as date,",
+				"          todate as date,",
+				"          isactive as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     inferDriftedColumnTypes: true,",
+				"     isolationLevel: 'READ_UNCOMMITTED',",
+				"     format: 'table') ~> targetSrc",
+				"sourcefile select(mapColumn(",
+				"          srcempid = empid,",
+				"          ename,",
+				"          sal",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> selectrequired",
+				"selectrequired, selmaxsurrtarget join(1==1,",
+				"     joinType:'cross',",
+				"     matchType:'exact',",
+				"     ignoreSpaces: false,",
+				"     broadcast: 'auto')~> joinmaxkeydata",
+				"joinmaxkeydata, targetSrc join(srcempid == empid,",
+				"     joinType:'left',",
+				"     matchType:'exact',",
+				"     ignoreSpaces: false,",
+				"     broadcast: 'auto')~> joinwithtarget",
+				"joinwithtarget split(srcempid==empid,",
+				"     disjoint: false) ~> keyMatching@(matchingdata, notmatcheced)",
+				"keyMatching@notmatcheced sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     deletable:false,",
+				"     insertable:true,",
+				"     updateable:false,",
+				"     upsertable:false,",
+				"     format: 'table',",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     errorHandlingOption: 'stopOnFirstError',",
+				"     mapColumn(",
+				"          empid = srcempid,",
+				"          ename = keyMatching@notmatcheced@ename,",
+				"          sal = keyMatching@notmatcheced@sal",
+				"     )) ~> sink1"
+			]
+		}
+	}
+}
