@@ -19,19 +19,14 @@
 						"referenceName": "df_aggr",
 						"type": "DataFlowReference",
 						"parameters": {
-							"eq_file": "$eq_file",
-							"greater_file": "$greater_file",
-							"lesser_file": "$lesser_file"
+							"filename": {
+								"value": "'@{pipeline().parameters.file1}'",
+								"type": "Expression"
+							}
 						},
 						"datasetParameters": {
 							"sink1": {
 								"filename": "eq_file.csv"
-							},
-							"sink2": {
-								"filename": "greater_file.csv"
-							},
-							"sink3": {
-								"filename": "lesser_file.csv"
 							}
 						}
 					},
@@ -43,6 +38,11 @@
 				}
 			}
 		],
+		"parameters": {
+			"file1": {
+				"type": "string"
+			}
+		},
 		"annotations": []
 	}
 }
