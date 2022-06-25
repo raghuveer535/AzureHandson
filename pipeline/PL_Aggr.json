@@ -22,6 +22,10 @@
 							"filename": {
 								"value": "'@{pipeline().parameters.file1}'",
 								"type": "Expression"
+							},
+							"containername": {
+								"value": "'@{pipeline().parameters.cont1}'",
+								"type": "Expression"
 							}
 						},
 						"datasetParameters": {
@@ -41,7 +45,12 @@
 		],
 		"parameters": {
 			"file1": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "sample.csv"
+			},
+			"cont1": {
+				"type": "string",
+				"defaultValue": "sablob1001"
 			}
 		},
 		"annotations": []
