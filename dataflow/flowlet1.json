@@ -1,0 +1,37 @@
+{
+	"name": "flowlet1",
+	"properties": {
+		"type": "Flowlet",
+		"typeProperties": {
+			"sources": [],
+			"sinks": [],
+			"transformations": [
+				{
+					"name": "maxsal"
+				},
+				{
+					"name": "input1"
+				},
+				{
+					"name": "output1"
+				}
+			],
+			"scriptLines": [
+				"input(output(",
+				"          empid as integer,",
+				"          name as string,",
+				"          salary as integer",
+				"     ),",
+				"     order: 0) ~> input1",
+				"input1 aggregate(groupBy(empid),",
+				"     max_salary = max(salary),",
+				"          avg_sal = avg(salary),",
+				"          min_sal = min(salary)) ~> maxsal",
+				"maxsal output(mapColumn(",
+				"          each(match(/* All input columns */ true()),",
+				"               /* Input name */ $$ = $$)",
+				"     )) ~> output1"
+			]
+		}
+	}
+}
