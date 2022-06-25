@@ -22,10 +22,7 @@
 					"value": "@dataset().filename",
 					"type": "Expression"
 				},
-				"container": {
-					"value": "@dataset().contname",
-					"type": "Expression"
-				}
+				"container": "sacont"
 			},
 			"columnDelimiter": ",",
 			"escapeChar": "\\",
