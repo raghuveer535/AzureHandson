@@ -33,6 +33,17 @@
 						"type": "DatasetReference"
 					},
 					"name": "sink1"
+				},
+				{
+					"dataset": {
+						"referenceName": "DS_AZ_Sql",
+						"type": "DatasetReference"
+					},
+					"name": "sink2",
+					"rejectedDataLinkedService": {
+						"referenceName": "LS_BlobStorage",
+						"type": "LinkedServiceReference"
+					}
 				}
 			],
 			"transformations": [
@@ -47,6 +58,15 @@
 				},
 				{
 					"name": "keyMatching"
+				},
+				{
+					"name": "salaryjoin"
+				},
+				{
+					"name": "split"
+				},
+				{
+					"name": "derivedColumn1"
 				}
 			],
 			"scriptLines": [
@@ -81,8 +101,8 @@
 				"     format: 'table') ~> targetSrc",
 				"sourcefile select(mapColumn(",
 				"          srcempid = empid,",
-				"          ename,",
-				"          sal",
+				"          srcename = ename,",
+				"          srcsal = sal",
 				"     ),",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true) ~> selectrequired",
@@ -98,6 +118,15 @@
 				"     broadcast: 'auto')~> joinwithtarget",
 				"joinwithtarget split(srcempid==empid,",
 				"     disjoint: false) ~> keyMatching@(matchingdata, notmatcheced)",
+				"keyMatching@matchingdata, targetSrc join(keyMatching@matchingdata@sal == targetSrc@sal,",
+				"     joinType:'left',",
+				"     matchType:'exact',",
+				"     ignoreSpaces: false,",
+				"     broadcast: 'both')~> salaryjoin",
+				"salaryjoin split(srcsal== targetSrc@sal,",
+				"     disjoint: false) ~> split@(salmatching, salnotmatched)",
+				"split@salmatching derive(isactive = 0,",
+				"          todate = currentDate()) ~> derivedColumn1",
 				"keyMatching@notmatcheced sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     deletable:false,",
@@ -112,7 +141,22 @@
 				"          empid = srcempid,",
 				"          ename = keyMatching@notmatcheced@ename,",
 				"          sal = keyMatching@notmatcheced@sal",
-				"     )) ~> sink1"
+				"     )) ~> sink1",
+				"split@salnotmatched sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     deletable:false,",
+				"     insertable:true,",
+				"     updateable:false,",
+				"     upsertable:false,",
+				"     format: 'table',",
+				"     errorHandlingOption: 'allErrors',",
+				"     transactionCommit: 'batch',",
+				"     reportSuccessOnError: true,",
+				"     mapColumn(",
+				"          empid = srcempid,",
+				"          ename = srcename,",
+				"          sal = srcsal",
+				"     )) ~> sink2"
 			]
 		}
 	}
