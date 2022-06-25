@@ -42,8 +42,8 @@
 			],
 			"scriptLines": [
 				"parameters{",
-				"     filename as string (\"sample\"),",
-				"     containername as string (\"sacont\")",
+				"     filename as string,",
+				"     containername as string",
 				"}",
 				"source(output(",
 				"          empid as short,",
