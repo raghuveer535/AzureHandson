@@ -3,7 +3,7 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "df_scd2",
+				"name": "SCD2_emp",
 				"type": "ExecuteDataFlow",
 				"dependsOn": [],
 				"policy": {
@@ -26,6 +26,12 @@
 								"table_name": "emp"
 							},
 							"sink1": {
+								"table_name": "emp"
+							},
+							"sink2": {
+								"table_name": "emp"
+							},
+							"finalscdtgt": {
 								"table_name": "emp"
 							}
 						}
