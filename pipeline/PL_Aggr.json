@@ -30,8 +30,14 @@
 						},
 						"datasetParameters": {
 							"sink1": {
-								"filename": "eq_file.csv",
-								"contname": "sablob1001"
+								"filename": {
+									"value": "@pipeline().parameters.file1",
+									"type": "Expression"
+								},
+								"contname": {
+									"value": "@pipeline().parameters.cont1",
+									"type": "Expression"
+								}
 							}
 						}
 					},
