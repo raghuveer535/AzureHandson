@@ -1,6 +1,43 @@
 {
 	"name": "PL_SCD2",
 	"properties": {
+		"activities": [
+			{
+				"name": "df_scd2",
+				"type": "ExecuteDataFlow",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "1.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"dataflow": {
+						"referenceName": "df_scd2",
+						"type": "DataFlowReference",
+						"datasetParameters": {
+							"selmaxsurrtarget": {
+								"table_name": "emp"
+							},
+							"targetSrc": {
+								"table_name": "emp"
+							},
+							"sink1": {
+								"table_name": "emp"
+							}
+						}
+					},
+					"integrationRuntime": {
+						"referenceName": "integrationRuntime1",
+						"type": "IntegrationRuntimeReference"
+					},
+					"traceLevel": "Fine"
+				}
+			}
+		],
 		"annotations": []
 	}
 }
