@@ -1,0 +1,48 @@
+{
+	"name": "PL_Aggr",
+	"properties": {
+		"activities": [
+			{
+				"name": "Data flow1",
+				"type": "ExecuteDataFlow",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "1.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"dataflow": {
+						"referenceName": "df_aggr",
+						"type": "DataFlowReference",
+						"parameters": {
+							"eq_file": "$eq_file",
+							"greater_file": "$greater_file",
+							"lesser_file": "$lesser_file"
+						},
+						"datasetParameters": {
+							"sink1": {
+								"filename": "eq_file.csv"
+							},
+							"sink2": {
+								"filename": "greater_file.csv"
+							},
+							"sink3": {
+								"filename": "lesser_file.csv"
+							}
+						}
+					},
+					"integrationRuntime": {
+						"referenceName": "integrationRuntime1",
+						"type": "IntegrationRuntimeReference"
+					},
+					"traceLevel": "Fine"
+				}
+			}
+		],
+		"annotations": []
+	}
+}
