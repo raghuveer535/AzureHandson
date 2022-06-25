@@ -39,18 +39,14 @@
 						"referenceName": "DS_AZ_Sql",
 						"type": "DatasetReference"
 					},
-					"name": "sink2",
-					"rejectedDataLinkedService": {
-						"referenceName": "LS_BlobStorage",
-						"type": "LinkedServiceReference"
-					}
+					"name": "finalscdtgt"
 				},
 				{
 					"dataset": {
 						"referenceName": "DS_AZ_Sql",
 						"type": "DatasetReference"
 					},
-					"name": "finalscdtgt"
+					"name": "sink2"
 				}
 			],
 			"transformations": [
@@ -157,21 +153,6 @@
 				"          ename = keyMatching@notmatcheced@ename,",
 				"          sal = keyMatching@notmatcheced@sal",
 				"     )) ~> sink1",
-				"split@salnotmatched sink(allowSchemaDrift: true,",
-				"     validateSchema: false,",
-				"     deletable:false,",
-				"     insertable:true,",
-				"     updateable:false,",
-				"     upsertable:false,",
-				"     format: 'table',",
-				"     errorHandlingOption: 'allErrors',",
-				"     transactionCommit: 'batch',",
-				"     reportSuccessOnError: true,",
-				"     mapColumn(",
-				"          empid = srcempid,",
-				"          ename = srcename,",
-				"          sal = srcsal",
-				"     )) ~> sink2",
 				"alterRow1 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     deletable:false,",
@@ -189,7 +170,22 @@
 				"          sal = srcsal,",
 				"          todate,",
 				"          isactive",
-				"     )) ~> finalscdtgt"
+				"     )) ~> finalscdtgt",
+				"split@salnotmatched sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     deletable:false,",
+				"     insertable:true,",
+				"     updateable:false,",
+				"     upsertable:false,",
+				"     format: 'table',",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     errorHandlingOption: 'stopOnFirstError',",
+				"     mapColumn(",
+				"          empid = srcempid,",
+				"          ename = srcename,",
+				"          sal = srcsal",
+				"     )) ~> sink2"
 			]
 		}
 	}
