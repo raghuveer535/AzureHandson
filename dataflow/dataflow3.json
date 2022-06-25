@@ -1,0 +1,115 @@
+{
+	"name": "dataflow3",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "DelimitedText1",
+						"type": "DatasetReference"
+					},
+					"name": "source1"
+				},
+				{
+					"dataset": {
+						"referenceName": "DelimitedText1",
+						"type": "DatasetReference"
+					},
+					"name": "source2"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "DelimitedText2",
+						"type": "DatasetReference"
+					},
+					"name": "sink1"
+				},
+				{
+					"dataset": {
+						"referenceName": "DelimitedText2",
+						"type": "DatasetReference"
+					},
+					"name": "sink2"
+				},
+				{
+					"dataset": {
+						"referenceName": "DelimitedText2",
+						"type": "DatasetReference"
+					},
+					"name": "sink3"
+				}
+			],
+			"transformations": [
+				{
+					"name": "flowlet1",
+					"flowlet": {
+						"referenceName": "fl_aggr",
+						"type": "DataFlowReference"
+					}
+				},
+				{
+					"name": "lookup1"
+				},
+				{
+					"name": "split1"
+				}
+			],
+			"scriptLines": [
+				"parameters{",
+				"     eq_file as string ($eq_file),",
+				"     greater_file as string ($greater_file),",
+				"     lesser_file as string ($lesser_file)",
+				"}",
+				"source(output(",
+				"          empid as short,",
+				"          ename as string,",
+				"          sal as short,",
+				"          dept as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> source1",
+				"source(output(",
+				"          empid as short,",
+				"          ename as string,",
+				"          sal as short,",
+				"          dept as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     inferDriftedColumnTypes: true,",
+				"     limit: 100,",
+				"     ignoreNoFilesFound: false) ~> source2",
+				"source1 compose(mapColumn(",
+				"          empid,",
+				"          name = ename,",
+				"          salary = sal,",
+				"          department = dept",
+				"     ),",
+				"     composition: 'fl_aggr') ~> flowlet1@(output1)",
+				"flowlet1@output1, source2 lookup(department == dept,",
+				"     multiple: false,",
+				"     pickup: 'any',",
+				"     broadcast: 'auto')~> lookup1",
+				"lookup1 split(sal  > avg_sal,",
+				"     sal < avg_sal,",
+				"     disjoint: true) ~> split1@(greateravgsal, lesseravgsal, eqavgsal)",
+				"split1@greateravgsal sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> sink1",
+				"split1@lesseravgsal sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> sink2",
+				"split1@eqavgsal sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> sink3"
+			]
+		}
+	}
+}
