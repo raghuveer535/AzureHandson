@@ -1,0 +1,219 @@
+{
+	"name": "PL_Csv_to_Parquet",
+	"properties": {
+		"activities": [
+			{
+				"name": "Copy data1",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "DelimitedTextSource",
+						"storeSettings": {
+							"type": "AzureBlobStorageReadSettings",
+							"recursive": true,
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "DelimitedTextReadSettings"
+						}
+					},
+					"sink": {
+						"type": "ParquetSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "ParquetWriteSettings"
+						}
+					},
+					"enableStaging": false,
+					"parallelCopies": 2,
+					"dataIntegrationUnits": 2,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "Country",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "Country",
+									"type": "String",
+									"physicalType": "UTF8"
+								}
+							},
+							{
+								"source": {
+									"name": "LandArea",
+									"type": "Decimal",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "LandArea",
+									"type": "String",
+									"physicalType": "UTF8"
+								}
+							},
+							{
+								"source": {
+									"name": "Population",
+									"type": "Double",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "Population",
+									"type": "String",
+									"physicalType": "UTF8"
+								}
+							},
+							{
+								"source": {
+									"name": "GDP",
+									"type": "Double",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "GDP",
+									"type": "String",
+									"physicalType": "UTF8"
+								}
+							},
+							{
+								"source": {
+									"name": "Rural",
+									"type": "Double",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "Rural",
+									"type": "String",
+									"physicalType": "UTF8"
+								}
+							},
+							{
+								"source": {
+									"name": "Internet",
+									"type": "Double",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "Internet",
+									"type": "String",
+									"physicalType": "UTF8"
+								}
+							},
+							{
+								"source": {
+									"name": "BirthRate",
+									"type": "Double",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "BirthRate",
+									"type": "String",
+									"physicalType": "UTF8"
+								}
+							},
+							{
+								"source": {
+									"name": "DeathRate",
+									"type": "Double",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "DeathRate",
+									"type": "String",
+									"physicalType": "UTF8"
+								}
+							},
+							{
+								"source": {
+									"name": "ElderlyPop",
+									"type": "Double",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "ElderlyPop",
+									"type": "String",
+									"physicalType": "UTF8"
+								}
+							},
+							{
+								"source": {
+									"name": "LifeExpectancy",
+									"type": "Double",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "LifeExpectancy",
+									"type": "String",
+									"physicalType": "UTF8"
+								}
+							},
+							{
+								"source": {
+									"name": "FemaleLabor",
+									"type": "Double",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "FemaleLabor",
+									"type": "String",
+									"physicalType": "UTF8"
+								}
+							},
+							{
+								"source": {
+									"name": "Unemployment",
+									"type": "Double",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "Unemployment",
+									"type": "String",
+									"physicalType": "UTF8"
+								}
+							}
+						],
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "ds_blob",
+						"type": "DatasetReference",
+						"parameters": {
+							"containername": "sacont",
+							"filename": "AllCountries.csv"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "ds_Parquet",
+						"type": "DatasetReference",
+						"parameters": {
+							"tgt_filename": "AllCountries.parquet"
+						}
+					}
+				]
+			}
+		],
+		"annotations": []
+	}
+}
