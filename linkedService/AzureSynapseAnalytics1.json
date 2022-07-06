@@ -1,0 +1,16 @@
+{
+	"name": "AzureSynapseAnalytics1",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "AzureSqlDW",
+		"typeProperties": {
+			"connectionString": "integrated security=False;encrypt=True;connection timeout=30;data source=synapseultra.sql.azuresynapse.net;initial catalog=dedicatedsqlpool;user id=admin1001",
+			"encryptedCredential": "ew0KICAiVmVyc2lvbiI6ICIyMDE3LTExLTMwIiwNCiAgIlByb3RlY3Rpb25Nb2RlIjogIktleSIsDQogICJTZWNyZXRDb250ZW50VHlwZSI6ICJQbGFpbnRleHQiLA0KICAiQ3JlZGVudGlhbElkIjogIkRBVEFGQUNUT1JZQEY5Rjk3MjdFLUJDMUUtNDkwMS05RUM4LTVERjZGQzUzNjQ0Ql8wYzM0ODZkNS03ZjIwLTQ5ZmQtYWE5NS0xY2I1NGQ2OTIwMGIiDQp9"
+		},
+		"connectVia": {
+			"referenceName": "integrationRuntime1",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}
