@@ -2,7 +2,7 @@
 	"name": "ds_httpcsv",
 	"properties": {
 		"linkedServiceName": {
-			"referenceName": "HttpServer1",
+			"referenceName": "LS_Http",
 			"type": "LinkedServiceReference"
 		},
 		"annotations": [],
