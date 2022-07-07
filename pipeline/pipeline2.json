@@ -46,7 +46,8 @@
 						"referenceName": "Json3",
 						"type": "DatasetReference",
 						"parameters": {
-							"contname": "sacont"
+							"contname": "sacont",
+							"filename": "emp.json"
 						}
 					}
 				]
