@@ -10,7 +10,7 @@
 		"typeProperties": {
 			"location": {
 				"type": "HttpServerLocation",
-				"relativeUrl": "/csv/Sample-Spreadsheet-5000-rows.csv"
+				"relativeUrl": "csv/Sample-Spreadsheet-100-rows.csv"
 			},
 			"columnDelimiter": ",",
 			"escapeChar": "\\",
