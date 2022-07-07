@@ -52,7 +52,7 @@
 				"typeProperties": {
 					"variableName": "x",
 					"value": {
-						"value": "@activity('Lookup1').output.value['Column1']",
+						"value": "@string(activity('Lookup1').output.value[0].Column3)",
 						"type": "Expression"
 					}
 				}
