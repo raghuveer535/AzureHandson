@@ -13,7 +13,7 @@
 			},
 			"UserName": {
 				"type": "string",
-				"defaultValue": "admin1001"
+				"defaultValue": "WELL_FCT"
 			},
 			"Password": {
 				"type": "string",
