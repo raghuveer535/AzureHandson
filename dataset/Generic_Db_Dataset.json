@@ -1,0 +1,30 @@
+{
+	"name": "Generic_Db_Dataset",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "Generic_SQL_LinkService",
+			"type": "LinkedServiceReference",
+			"parameters": {
+				"ServerName": "dudmfct.database.windows.net",
+				"DbName": "DUDMFCT",
+				"UserName": "admin1001",
+				"Password": "Admin@123"
+			}
+		},
+		"parameters": {
+			"TableName": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": {
+				"value": "@dataset().TableName",
+				"type": "Expression"
+			}
+		}
+	}
+}
