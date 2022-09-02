@@ -1,86 +1,120 @@
 {
-	"name": "CopyPipeline_DL_to_Blob",
+	"name": "cp_Blob_to_Datalake",
 	"properties": {
 		"description": "this pipeline copies data from datalake to blob data storage",
 		"activities": [
 			{
-				"name": "Copy_yfq",
+				"name": "Blob_to_DataLake",
 				"type": "Copy",
-				"dependsOn": [],
+				"dependsOn": [
+					{
+						"activity": "lkpStorageDetails",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
 				"policy": {
-					"timeout": "7.00:00:00",
+					"timeout": "0.12:00:00",
 					"retry": 0,
 					"retryIntervalInSeconds": 30,
 					"secureOutput": false,
 					"secureInput": false
 				},
-				"userProperties": [
-					{
-						"name": "Source",
-						"value": "python-practice/BankDir/CSV Files/"
-					},
-					{
-						"name": "Destination",
-						"value": "contbank//"
-					}
-				],
+				"userProperties": [],
 				"typeProperties": {
 					"source": {
-						"type": "DelimitedTextSource",
+						"type": "ParquetSource",
 						"storeSettings": {
-							"type": "AzureBlobFSReadSettings",
+							"type": "AzureBlobStorageReadSettings",
 							"recursive": true,
-							"wildcardFileName": "*",
 							"enablePartitionDiscovery": false
-						},
-						"formatSettings": {
-							"type": "DelimitedTextReadSettings",
-							"skipLineCount": 0
 						}
 					},
 					"sink": {
-						"type": "DelimitedTextSink",
+						"type": "ParquetSink",
 						"storeSettings": {
-							"type": "AzureBlobStorageWriteSettings"
+							"type": "AzureBlobFSWriteSettings",
+							"copyBehavior": "MergeFiles"
 						},
 						"formatSettings": {
-							"type": "DelimitedTextWriteSettings",
-							"quoteAllText": true,
-							"fileExtension": ".txt"
+							"type": "ParquetWriteSettings"
 						}
 					},
 					"enableStaging": false,
-					"enableSkipIncompatibleRow": true,
-					"validateDataConsistency": true,
-					"logSettings": {
-						"enableCopyActivityLog": true,
-						"copyActivityLogSettings": {
-							"logLevel": "Warning",
-							"enableReliableLogging": false
-						},
-						"logLocationSettings": {
-							"linkedServiceName": {
-								"referenceName": "AzureBlobStorage1",
-								"type": "LinkedServiceReference"
-							},
-							"path": "contbank"
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
 						}
 					}
 				},
 				"inputs": [
 					{
-						"referenceName": "SourceDataset_yfq",
-						"type": "DatasetReference"
+						"referenceName": "Parquet_blocks",
+						"type": "DatasetReference",
+						"parameters": {
+							"containerName": {
+								"value": "@activity('lkpStorageDetails').output.value",
+								"type": "Expression"
+							}
+						}
 					}
 				],
 				"outputs": [
 					{
-						"referenceName": "DestinationDataset_yfq",
+						"referenceName": "Parquet1",
 						"type": "DatasetReference"
 					}
 				]
+			},
+			{
+				"name": "lkpStorageDetails",
+				"type": "Lookup",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "AzureSqlSource",
+						"sqlReaderQuery": {
+							"value": "select container_name from storage where type='sablob10001';",
+							"type": "Expression"
+						},
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"dataset": {
+						"referenceName": "Generic_Db_Dataset",
+						"type": "DatasetReference",
+						"parameters": {
+							"TableName": {
+								"value": "@pipeline().parameters.storage_table",
+								"type": "Expression"
+							}
+						}
+					},
+					"firstRowOnly": false
+				}
 			}
 		],
+		"parameters": {
+			"storage_table": {
+				"type": "string",
+				"defaultValue": "storage"
+			}
+		},
+		"folder": {
+			"name": "old_jobs"
+		},
 		"annotations": [],
 		"lastPublishTime": "2022-03-21T02:01:34Z"
 	},
