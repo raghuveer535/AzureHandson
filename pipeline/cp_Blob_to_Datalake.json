@@ -28,6 +28,11 @@
 						"storeSettings": {
 							"type": "AzureBlobStorageReadSettings",
 							"recursive": true,
+							"wildcardFolderPath": {
+								"value": "@string(activity('lkpStorageDetails').output.value[0]['container_name'])",
+								"type": "Expression"
+							},
+							"wildcardFileName": "*.parquet",
 							"enablePartitionDiscovery": false
 						}
 					},
@@ -57,7 +62,7 @@
 						"type": "DatasetReference",
 						"parameters": {
 							"containerName": {
-								"value": "@activity('lkpStorageDetails').output.value",
+								"value": "@string(activity('lkpStorageDetails').output.value[0]['container_name'])",
 								"type": "Expression"
 							}
 						}
