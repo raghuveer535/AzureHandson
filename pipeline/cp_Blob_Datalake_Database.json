@@ -1,5 +1,5 @@
 {
-	"name": "cp_Blob_to_Datalake",
+	"name": "cp_Blob_Datalake_Database",
 	"properties": {
 		"description": "this pipeline copies data from datalake to blob data storage",
 		"activities": [
@@ -174,7 +174,13 @@
 					},
 					"sink": {
 						"type": "AzureSqlSink",
-						"writeBehavior": "insert",
+						"writeBehavior": "upsert",
+						"upsertSettings": {
+							"useTempDB": true,
+							"keys": [
+								"number"
+							]
+						},
 						"sqlWriterUseTableLock": false,
 						"tableOption": "autoCreate",
 						"disableMetricsCollection": false
@@ -182,6 +188,272 @@
 					"enableStaging": false,
 					"translator": {
 						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "number",
+									"type": "Int64",
+									"physicalType": "INT64"
+								},
+								"sink": {
+									"name": "number",
+									"type": "Int64",
+									"physicalType": "bigint"
+								}
+							},
+							{
+								"source": {
+									"name": "hash",
+									"type": "String",
+									"physicalType": "UTF8"
+								},
+								"sink": {
+									"name": "hash",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "parent_hash",
+									"type": "String",
+									"physicalType": "UTF8"
+								},
+								"sink": {
+									"name": "parent_hash",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "nonce",
+									"type": "String",
+									"physicalType": "UTF8"
+								},
+								"sink": {
+									"name": "nonce",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "sha3_uncles",
+									"type": "String",
+									"physicalType": "UTF8"
+								},
+								"sink": {
+									"name": "sha3_uncles",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "logs_bloom",
+									"type": "String",
+									"physicalType": "UTF8"
+								},
+								"sink": {
+									"name": "logs_bloom",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "transactions_root",
+									"type": "String",
+									"physicalType": "UTF8"
+								},
+								"sink": {
+									"name": "transactions_root",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "state_root",
+									"type": "String",
+									"physicalType": "UTF8"
+								},
+								"sink": {
+									"name": "state_root",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "receipts_root",
+									"type": "String",
+									"physicalType": "UTF8"
+								},
+								"sink": {
+									"name": "receipts_root",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "miner",
+									"type": "String",
+									"physicalType": "UTF8"
+								},
+								"sink": {
+									"name": "miner",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "difficulty",
+									"type": "Int64",
+									"physicalType": "INT64"
+								},
+								"sink": {
+									"name": "difficulty",
+									"type": "Int64",
+									"physicalType": "bigint"
+								}
+							},
+							{
+								"source": {
+									"name": "extra_data",
+									"type": "String",
+									"physicalType": "UTF8"
+								},
+								"sink": {
+									"name": "extra_data",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "size",
+									"type": "Int32",
+									"physicalType": "INT32"
+								},
+								"sink": {
+									"name": "size",
+									"type": "Int32",
+									"physicalType": "int"
+								}
+							},
+							{
+								"source": {
+									"name": "gas_limit",
+									"type": "Int64",
+									"physicalType": "INT64"
+								},
+								"sink": {
+									"name": "gas_limit",
+									"type": "Int64",
+									"physicalType": "bigint"
+								}
+							},
+							{
+								"source": {
+									"name": "gas_used",
+									"type": "Int64",
+									"physicalType": "INT64"
+								},
+								"sink": {
+									"name": "gas_used",
+									"type": "Int64",
+									"physicalType": "bigint"
+								}
+							},
+							{
+								"source": {
+									"name": "timestamp",
+									"type": "Int64",
+									"physicalType": "INT64"
+								},
+								"sink": {
+									"name": "timestamp",
+									"type": "Int64",
+									"physicalType": "bigint"
+								}
+							},
+							{
+								"source": {
+									"name": "transactions_len",
+									"type": "Int32",
+									"physicalType": "INT32"
+								},
+								"sink": {
+									"name": "transactions_len",
+									"type": "Int32",
+									"physicalType": "int"
+								}
+							},
+							{
+								"source": {
+									"name": "uncles_len",
+									"type": "Int32",
+									"physicalType": "INT32"
+								},
+								"sink": {
+									"name": "uncles_len",
+									"type": "Int32",
+									"physicalType": "int"
+								}
+							},
+							{
+								"source": {
+									"name": "base_fee_per_gas",
+									"type": "Int64",
+									"physicalType": "INT64"
+								},
+								"sink": {
+									"name": "base_fee_per_gas",
+									"type": "Int64",
+									"physicalType": "bigint"
+								}
+							},
+							{
+								"source": {
+									"name": "mix_hash",
+									"type": "String",
+									"physicalType": "UTF8"
+								},
+								"sink": {
+									"name": "mix_hash",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "nephew",
+									"type": "Int64",
+									"physicalType": "INT64"
+								},
+								"sink": {
+									"name": "nephew",
+									"type": "Int64",
+									"physicalType": "bigint"
+								}
+							},
+							{
+								"source": {
+									"name": "uncle_index",
+									"type": "Int32",
+									"physicalType": "INT32"
+								},
+								"sink": {
+									"name": "uncle_index",
+									"type": "Int32",
+									"physicalType": "int"
+								}
+							}
+						],
 						"typeConversion": true,
 						"typeConversionSettings": {
 							"allowDataTruncation": true,
