@@ -7,6 +7,9 @@
 		},
 		"parameters": {
 			"tgt_filename": {
+				"type": "string"
+			},
+			"Directory": {
 				"type": "string",
 				"defaultValue": "MY_Parquet"
 			}
