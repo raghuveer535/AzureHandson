@@ -10,6 +10,7 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
+				"fileName": "rag.parquet",
 				"folderPath": "MY_Parquet",
 				"fileSystem": "sacont001"
 			},
