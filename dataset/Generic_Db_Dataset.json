@@ -7,7 +7,7 @@
 			"parameters": {
 				"ServerName": "dudmfct.database.windows.net",
 				"DbName": "DUDMFCT",
-				"UserName": "admin1001",
+				"UserName": "WELL_FCT",
 				"Password": "Admin@123"
 			}
 		},
