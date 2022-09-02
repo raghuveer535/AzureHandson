@@ -1,0 +1,123 @@
+{
+	"name": "Parquet_blocks",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_BlobStorage",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"containerName": {
+				"type": "string"
+			},
+			"Filename": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "Parquet",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": {
+					"value": "@dataset().Filename",
+					"type": "Expression"
+				},
+				"container": {
+					"value": "@dataset().containerName",
+					"type": "Expression"
+				}
+			},
+			"compressionCodec": "snappy"
+		},
+		"schema": [
+			{
+				"name": "number",
+				"type": "INT64"
+			},
+			{
+				"name": "hash",
+				"type": "UTF8"
+			},
+			{
+				"name": "parent_hash",
+				"type": "UTF8"
+			},
+			{
+				"name": "nonce",
+				"type": "UTF8"
+			},
+			{
+				"name": "sha3_uncles",
+				"type": "UTF8"
+			},
+			{
+				"name": "logs_bloom",
+				"type": "UTF8"
+			},
+			{
+				"name": "transactions_root",
+				"type": "UTF8"
+			},
+			{
+				"name": "state_root",
+				"type": "UTF8"
+			},
+			{
+				"name": "receipts_root",
+				"type": "UTF8"
+			},
+			{
+				"name": "miner",
+				"type": "UTF8"
+			},
+			{
+				"name": "difficulty",
+				"type": "INT64"
+			},
+			{
+				"name": "extra_data",
+				"type": "UTF8"
+			},
+			{
+				"name": "size",
+				"type": "INT32"
+			},
+			{
+				"name": "gas_limit",
+				"type": "INT64"
+			},
+			{
+				"name": "gas_used",
+				"type": "INT64"
+			},
+			{
+				"name": "timestamp",
+				"type": "INT64"
+			},
+			{
+				"name": "transactions_len",
+				"type": "INT32"
+			},
+			{
+				"name": "uncles_len",
+				"type": "INT32"
+			},
+			{
+				"name": "base_fee_per_gas",
+				"type": "INT64"
+			},
+			{
+				"name": "mix_hash",
+				"type": "UTF8"
+			},
+			{
+				"name": "nephew",
+				"type": "INT64"
+			},
+			{
+				"name": "uncle_index",
+				"type": "INT32"
+			}
+		]
+	}
+}
