@@ -28,10 +28,6 @@
 						"storeSettings": {
 							"type": "AzureBlobStorageReadSettings",
 							"recursive": true,
-							"wildcardFolderPath": {
-								"value": "@string(activity('lkpStorageDetails').output.value[0]['container_name'])",
-								"type": "Expression"
-							},
 							"wildcardFileName": "*.parquet",
 							"enablePartitionDiscovery": false
 						}
@@ -109,12 +105,164 @@
 					},
 					"firstRowOnly": false
 				}
+			},
+			{
+				"name": "lkpStorageDataLake",
+				"type": "Lookup",
+				"dependsOn": [
+					{
+						"activity": "Blob_to_DataLake",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "AzureSqlSource",
+						"sqlReaderQuery": "select container_name from storage where type='sadatalake1001';",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"dataset": {
+						"referenceName": "Generic_Db_Dataset",
+						"type": "DatasetReference",
+						"parameters": {
+							"TableName": {
+								"value": "@pipeline().parameters.storage_table",
+								"type": "Expression"
+							}
+						}
+					}
+				}
+			},
+			{
+				"name": "cp_Datalake_to_Database",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "lkpStorageDataLake",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "ParquetSource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true,
+							"enablePartitionDiscovery": false
+						}
+					},
+					"sink": {
+						"type": "AzureSqlSink",
+						"writeBehavior": "upsert",
+						"upsertSettings": {
+							"useTempDB": true,
+							"keys": []
+						},
+						"sqlWriterUseTableLock": false,
+						"tableOption": "autoCreate",
+						"disableMetricsCollection": false
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "ds_Parquet",
+						"type": "DatasetReference",
+						"parameters": {
+							"tgt_filename": "rag.parquet",
+							"Directory": {
+								"value": "@pipeline().parameters.datalake_folder",
+								"type": "Expression"
+							}
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "Generic_Dataset_Table_DS",
+						"type": "DatasetReference",
+						"parameters": {
+							"pmTableName": {
+								"value": "@pipeline().parameters.table_name",
+								"type": "Expression"
+							},
+							"pmServerName": {
+								"value": "@pipeline().parameters.db_name",
+								"type": "Expression"
+							},
+							"pmDbName": {
+								"value": "@pipeline().parameters.db_name",
+								"type": "Expression"
+							},
+							"pmUserName": {
+								"value": "@pipeline().parameters.db_user_name",
+								"type": "Expression"
+							},
+							"pmPassword": {
+								"value": "@pipeline().parameters.db_password",
+								"type": "Expression"
+							}
+						}
+					}
+				]
 			}
 		],
 		"parameters": {
 			"storage_table": {
 				"type": "string",
 				"defaultValue": "storage"
+			},
+			"datalake_folder": {
+				"type": "string",
+				"defaultValue": "MY_Parquet"
+			},
+			"table_name": {
+				"type": "string",
+				"defaultValue": "rag_parquet"
+			},
+			"db_name": {
+				"type": "string",
+				"defaultValue": "DUDMFCT"
+			},
+			"db_user_name": {
+				"type": "string",
+				"defaultValue": "WELL_FCT"
+			},
+			"db_password": {
+				"type": "securestring",
+				"defaultValue": {
+					"type": "SecureString",
+					"value": "**********"
+				}
 			}
 		},
 		"folder": {
