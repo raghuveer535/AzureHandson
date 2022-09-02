@@ -258,11 +258,8 @@
 				"defaultValue": "WELL_FCT"
 			},
 			"db_password": {
-				"type": "securestring",
-				"defaultValue": {
-					"type": "SecureString",
-					"value": "**********"
-				}
+				"type": "string",
+				"defaultValue": "Admin@123"
 			}
 		},
 		"folder": {
