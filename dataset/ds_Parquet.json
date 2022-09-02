@@ -19,7 +19,7 @@
 					"value": "@dataset().tgt_filename",
 					"type": "Expression"
 				},
-				"fileSystem": "adls"
+				"fileSystem": "sacont001"
 			},
 			"compressionCodec": "snappy"
 		},
