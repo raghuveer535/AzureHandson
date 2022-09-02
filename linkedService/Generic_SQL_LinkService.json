@@ -9,14 +9,15 @@
 			},
 			"DbName": {
 				"type": "string",
-				"defaultValue": "WELL_FCT"
+				"defaultValue": "DUDMFCT"
 			},
 			"UserName": {
 				"type": "string",
 				"defaultValue": "admin1001"
 			},
 			"Password": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "Admin@123"
 			}
 		},
 		"annotations": [],
@@ -25,7 +26,7 @@
 			"connectionString": "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=@{linkedService().ServerName};Initial Catalog=@{linkedService().DbName};User ID=@{linkedService().UserName};Password=@{linkedService().Password}"
 		},
 		"connectVia": {
-			"referenceName": "AutoResolveIntegrationRuntime",
+			"referenceName": "AzureIntegratedRuntime",
 			"type": "IntegrationRuntimeReference"
 		}
 	}
