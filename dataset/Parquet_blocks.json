@@ -7,10 +7,12 @@
 		},
 		"parameters": {
 			"containerName": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "contblob"
 			},
 			"Filename": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "*.parquet"
 			}
 		},
 		"annotations": [],
