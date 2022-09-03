@@ -32,7 +32,7 @@
 						"Content-Type": "application/json"
 					},
 					"body": {
-						"value": "{\n\"datafactory_name\" : \"@{pipeline().DataFactory}\",\n\"email_list\" : \"@{pipeline().parameters.email_list}\",\n\"pipeline_name\" : \"@{pipeline().Pipeline}\",\n\"runid\" : \"@{pipeline().RunId}\",\n\"status\" : \"SUCCESSFULLY COMPLETED\",\n\"timestamp : \"@{utcNow()}\"\n}",
+						"value": "{\n\"datafactory_name\":\"@{pipeline().DataFactory}\",\n\"email_list\":\"@{pipeline().parameters.email_list}\",\n\"pipeline_name\":\"@{pipeline().Pipeline}\",\n\"runid\":\"@{pipeline().RunId}\",\n\"status\":\"SUCCESSFULLY COMPLETED\",\n\"timestamp:\"@{utcNow()}\"\n}",
 						"type": "Expression"
 					}
 				}
