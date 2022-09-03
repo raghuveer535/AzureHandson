@@ -28,7 +28,7 @@
 						"Content-Type": "application/json"
 					},
 					"body": {
-						"value": "{\n\"name\":\"ramageetha\",\n\"age\":50,\n\"gender\":\"Female\",\n\"email\":\"raghuveer.matam@\\ihsmarkit.com\"\n}",
+						"value": "{\n\"name\":\"ramageetha\",\n\"age\":50,\n\"gender\":\"Female\",\n\"email\":\"raghuveer.matam@\\\\ihsmarkit.com\"\n}",
 						"type": "Expression"
 					}
 				}
