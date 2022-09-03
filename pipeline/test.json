@@ -15,7 +15,10 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"url": "https://prod-30.centralus.logic.azure.com:443/workflows/6d604f2298d3455689cf83f8dfa7a67d/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=gxYJOn2h_NqBYyyP-2bNnlcyLyKoN0qiunK8Z02Zofg",
+					"url": {
+						"value": "https://prod-27.centralus.logic.azure.com:443/workflows/80b1f2b6d6e74942abe03cafd684b00a/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=gwndyjN_l4PAyVpEWhxYTHtg_w1Oz5t2UvsRH2j8iRc",
+						"type": "Expression"
+					},
 					"connectVia": {
 						"referenceName": "AutoResolveIntegrationRuntime",
 						"type": "IntegrationRuntimeReference"
@@ -25,7 +28,7 @@
 						"Content-Type": "application/json"
 					},
 					"body": {
-						"value": "{\n\"datafactory_name\":\"@{pipeline().DataFactory}\",\n\"email_list\":\"raghuveer.matam@ihsmarkit.com\",\n\"pipeline_name\":\"dummy\",\n\"runid\":\"11054\",\n\"status\":\"SUCCESS\",\n\"timestamp:\"20220722\"\n}",
+						"value": "{\n\"name\":\"ramageetha\",\n\"age\":50,\n\"gender\":\"Female\"\n\"email\":\"raghuveer.matam@\\ihsmarkit.com\"\n}",
 						"type": "Expression"
 					}
 				}
