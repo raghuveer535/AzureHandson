@@ -1,0 +1,36 @@
+{
+	"name": "test",
+	"properties": {
+		"activities": [
+			{
+				"name": "web-email-alert-success",
+				"type": "WebActivity",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"url": "https://prod-30.centralus.logic.azure.com:443/workflows/6d604f2298d3455689cf83f8dfa7a67d/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=gxYJOn2h_NqBYyyP-2bNnlcyLyKoN0qiunK8Z02Zofg",
+					"connectVia": {
+						"referenceName": "AutoResolveIntegrationRuntime",
+						"type": "IntegrationRuntimeReference"
+					},
+					"method": "POST",
+					"headers": {
+						"Content-Type": "application/json"
+					},
+					"body": {
+						"value": "{\n\"datafactory_name\":\"@{pipeline().DataFactory}\",\n\"email_list\":\"raghuveer.matam@ihsmarkit.com\",\n\"pipeline_name\":\"@{pipeline().Pipeline}\",\n\"runid\":\"@{pipeline().RunId}\",\n\"status\":\"SUCCESSFULLY COMPLETED\",\n\"timestamp:\"@{utcNow()}\"\n}",
+						"type": "Expression"
+					}
+				}
+			}
+		],
+		"annotations": []
+	}
+}
