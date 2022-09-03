@@ -165,7 +165,7 @@
 					"source": {
 						"type": "AzureSqlSource",
 						"sqlReaderQuery": {
-							"value": "insert into common_process values ('',pipeline().Pipeline,pipeline().RunId,\nformatDateTime(variables('start_time')),formatDateTime(variables('end_time')),\nvariables('execution_time'),activity('cp_Blob_Datalake_Database').Status);",
+							"value": "insert into common_process values ('',@{pipeline().Pipeline},@{pipeline().RunId},\n@{formatDateTime(variables('start_time'))},@{formatDateTime(variables('end_time'))},\nvariables('execution_time'),@{activity('cp_Blob_Datalake_Database').Status});",
 							"type": "Expression"
 						},
 						"queryTimeout": "02:00:00",
