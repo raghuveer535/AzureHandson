@@ -165,7 +165,7 @@
 					"source": {
 						"type": "AzureSqlSource",
 						"sqlReaderQuery": {
-							"value": "insert into common_process values ('',@{pipeline().Pipeline},@{pipeline().RunId},@{formatDateTime(variables('start_time'))},@{formatDateTime(variables('end_time'))},\n@{variables('execution_time')},\"SUCCESS\");commit;",
+							"value": "insert into common_process values ('','@{pipeline().Pipeline}','@{pipeline().RunId}','@{formatDateTime(variables('start_time'))}','@{formatDateTime(variables('end_time'))}',\n'@{variables('execution_time')}','SUCCESS');commit;",
 							"type": "Expression"
 						},
 						"queryTimeout": "02:00:00",
