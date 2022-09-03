@@ -32,7 +32,7 @@
 						"Content-Type": "application/json"
 					},
 					"body": {
-						"value": "{\n\"datafactory_name\" : \"@{pipeline().DataFactory}\",\n\"email_list\" : \"@{pipeline().parameters.email_list}\",\n\"pipeline_name\" : \"@{pipeline().Pipeline}\",\n\"runid\" : \"@{pipeline().RunId}\",\n\"status\" : \"@{activity('cp_Blob_Datalake_Database').Error.Message}\",\n\"timestamp : \"@{utcNow()}\"\n}",
+						"value": "{\n\"datafactory_name\" : \"@{pipeline().DataFactory}\",\n\"email_list\" : \"@{pipeline().parameters.email_list}\",\n\"pipeline_name\" : \"@{pipeline().Pipeline}\",\n\"runid\" : \"@{pipeline().RunId}\",\n\"status\" : \"@{activity('cp_Blob_Datalake_Database')?.Status}\",\n\"timestamp : \"@{utcNow()}\"\n}",
 						"type": "Expression"
 					}
 				}
@@ -80,7 +80,7 @@
 						"Content-Type": "application/json"
 					},
 					"body": {
-						"value": "{\n\"pipeline\" : \"@{pipeline().Pipeline}\",\n\"Status\" : \"FAILED\",\n\"DataFactoryName\" : \"@{pipeline().DataFactory}\",\n\"RunID\" : \"@{pipeline().RunId}\"\n}",
+						"value": "{\n\"datafactory_name\" : \"@{pipeline().DataFactory}\",\n\"email_list\" : \"@{pipeline().parameters.email_list}\",\n\"pipeline_name\" : \"@{pipeline().Pipeline}\",\n\"runid\" : \"@{pipeline().RunId}\",\n\"status\" : \"@{activity('cp_Blob_Datalake_Database').Error.Message}\",\n\"timestamp : \"@{utcNow()}\"\n}",
 						"type": "Expression"
 					}
 				}
