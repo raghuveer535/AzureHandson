@@ -25,7 +25,7 @@
 						"Content-Type": "application/json"
 					},
 					"body": {
-						"value": "{\n\"datafactory_name\":\"@{pipeline().DataFactory}\",\n\"email_list\":\"raghuveer.matam@ihsmarkit.com\",\n\"pipeline_name\":\"dummy\",\n\"runid\":\"11054\",\n\"status\":\"SUCCESSFULLY COMPLETED\",\n\"timestamp:\"20220722\"\n}",
+						"value": "{\n\"datafactory_name\":\"@{pipeline().DataFactory}\",\n\"email_list\":\"raghuveer.matam@ihsmarkit.com\",\n\"pipeline_name\":\"dummy\",\n\"runid\":\"11054\",\n\"status\":\"SUCCESS\",\n\"timestamp:\"20220722\"\n}",
 						"type": "Expression"
 					}
 				}
