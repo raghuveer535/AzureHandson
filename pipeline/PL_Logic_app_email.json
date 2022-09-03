@@ -40,7 +40,14 @@
 			{
 				"name": "cp_Blob_Datalake_Database",
 				"type": "ExecutePipeline",
-				"dependsOn": [],
+				"dependsOn": [
+					{
+						"activity": "PL_Start_Time",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
 				"userProperties": [],
 				"typeProperties": {
 					"pipeline": {
@@ -84,12 +91,115 @@
 						"type": "Expression"
 					}
 				}
+			},
+			{
+				"name": "PL_Start_Time",
+				"type": "SetVariable",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "start_time",
+					"value": {
+						"value": "@string(utcnow())",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "PL_End_Time",
+				"type": "SetVariable",
+				"dependsOn": [
+					{
+						"activity": "web-email-alert-success",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "end_time",
+					"value": "@string(utcnow())"
+				}
+			},
+			{
+				"name": "PL_Execution_time",
+				"type": "SetVariable",
+				"dependsOn": [
+					{
+						"activity": "PL_End_Time",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "execution_time",
+					"value": {
+						"value": "@string(div(sub(ticks(formatDateTime(variables('end_time'))),ticks(formatDateTime(variables('start_time')))),1000))",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "Update_Common_Process",
+				"type": "Lookup",
+				"dependsOn": [
+					{
+						"activity": "PL_Execution_time",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "AzureSqlSource",
+						"sqlReaderQuery": {
+							"value": "@insert into common_process values ('',pipeline().Pipeline,pipeline().RunId,\nformatDateTime(variables('start_time')),formatDateTime(variables('end_time')),\nvariables('execution_time'),activity('cp_Blob_Datalake_Database').Status);",
+							"type": "Expression"
+						},
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"dataset": {
+						"referenceName": "Generic_Dataset_Table_DS",
+						"type": "DatasetReference",
+						"parameters": {
+							"pmTableName": "common_process",
+							"pmServerName": "dudmfct.database.windows.net",
+							"pmDbName": "DUDMFCT",
+							"pmUserName": "WELL_FCT",
+							"pmPassword": "Admin@123"
+						}
+					}
+				}
 			}
 		],
 		"parameters": {
 			"email_list": {
 				"type": "string",
 				"defaultValue": "raghuveer.matam@ihsmarkit.com"
+			}
+		},
+		"variables": {
+			"start_time": {
+				"type": "String"
+			},
+			"end_time": {
+				"type": "String"
+			},
+			"execution_time": {
+				"type": "String"
 			}
 		},
 		"annotations": []
