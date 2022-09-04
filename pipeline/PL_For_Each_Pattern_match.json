@@ -102,7 +102,7 @@
 				"typeProperties": {
 					"variableName": "x",
 					"value": {
-						"value": "@activity('getFolderDetails').output.value",
+						"value": "@string(activity('getFolderDetails').output.value)",
 						"type": "Expression"
 					}
 				}
