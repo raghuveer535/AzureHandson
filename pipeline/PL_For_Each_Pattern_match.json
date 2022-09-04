@@ -28,12 +28,91 @@
 					},
 					"dataset": {
 						"referenceName": "Json_Params",
-						"type": "DatasetReference"
+						"type": "DatasetReference",
+						"parameters": {
+							"file_name": "DB_Details.json"
+						}
 					},
 					"firstRowOnly": false
 				}
+			},
+			{
+				"name": "getFolderDetails",
+				"type": "Lookup",
+				"dependsOn": [
+					{
+						"activity": "getDbDetails",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "AzureSqlSource",
+						"sqlReaderQuery": "select id,container_name,source_folder,target_folder,business_type from common_folders;",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"dataset": {
+						"referenceName": "Generic_Dataset_Table_DS",
+						"type": "DatasetReference",
+						"parameters": {
+							"pmTableName": "common_folders",
+							"pmServerName": {
+								"value": "@activity('getDbDetails').output.value[0]['pmServerName']",
+								"type": "Expression"
+							},
+							"pmDbName": {
+								"value": "@activity('getDbDetails').output.value[0]['pmServerName']",
+								"type": "Expression"
+							},
+							"pmUserName": {
+								"value": "@activity('getDbDetails').output.value[0]['pmUserName']",
+								"type": "Expression"
+							},
+							"pmPassword": {
+								"value": "@activity('getDbDetails').output.value[0]['pmPassword']",
+								"type": "Expression"
+							}
+						}
+					}
+				}
+			},
+			{
+				"name": "Append variable1",
+				"type": "AppendVariable",
+				"dependsOn": [
+					{
+						"activity": "getFolderDetails",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "x",
+					"value": {
+						"value": "@activity('getFolderDetails').output.value",
+						"type": "Expression"
+					}
+				}
 			}
 		],
+		"variables": {
+			"x": {
+				"type": "Array"
+			}
+		},
 		"folder": {
 			"name": "Final"
 		},
