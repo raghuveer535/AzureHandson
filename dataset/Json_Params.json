@@ -1,0 +1,65 @@
+{
+	"name": "Json_Params",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_AzureDataLakeStorage",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"dir": {
+				"type": "string"
+			},
+			"file_name": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": {
+					"value": "@dataset().file_name",
+					"type": "Expression"
+				},
+				"folderPath": {
+					"value": "@dataset().dir",
+					"type": "Expression"
+				},
+				"fileSystem": "sa-params-json"
+			}
+		},
+		"schema": {
+			"type": "object",
+			"properties": {
+				"pmServerName": {
+					"type": "string"
+				},
+				"pmDbName": {
+					"type": "string"
+				},
+				"pmUserName": {
+					"type": "string"
+				},
+				"pmPassword": {
+					"type": "string"
+				},
+				"id": {
+					"type": "integer"
+				},
+				"cont_name": {
+					"type": "string"
+				},
+				"src_folder": {
+					"type": "string"
+				},
+				"tgt_folder": {
+					"type": "string"
+				},
+				"business": {
+					"type": "string"
+				}
+			}
+		}
+	}
+}
