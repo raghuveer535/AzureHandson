@@ -72,7 +72,7 @@
 								"type": "Expression"
 							},
 							"pmDbName": {
-								"value": "@activity('getDbDetails').output.value[0]['pmServerName']",
+								"value": "@activity('getDbDetails').output.value[0]['pmDbName']",
 								"type": "Expression"
 							},
 							"pmUserName": {
