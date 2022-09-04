@@ -119,7 +119,10 @@
 				"userProperties": [],
 				"typeProperties": {
 					"variableName": "end_time",
-					"value": "@string(utcnow())"
+					"value": {
+						"value": "@string(utcnow())",
+						"type": "Expression"
+					}
 				}
 			},
 			{
@@ -201,6 +204,9 @@
 			"execution_time": {
 				"type": "String"
 			}
+		},
+		"folder": {
+			"name": "Final"
 		},
 		"annotations": []
 	}
