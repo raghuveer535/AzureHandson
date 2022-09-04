@@ -125,6 +125,8 @@
 									"storeSettings": {
 										"type": "AzureBlobFSReadSettings",
 										"recursive": true,
+										"wildcardFolderPath": "@{item().src_folder}",
+										"wildcardFileName": "*.csv",
 										"enablePartitionDiscovery": false
 									},
 									"formatSettings": {
@@ -158,13 +160,10 @@
 									"type": "DatasetReference",
 									"parameters": {
 										"ContainerName": {
-											"value": "@item().cont_name",
+											"value": "@{item().cont_name}",
 											"type": "Expression"
 										},
-										"FileName": {
-											"value": "@item().src_folder",
-											"type": "Expression"
-										}
+										"foldername": "@{item().tgt_folder}"
 									}
 								}
 							],
@@ -174,13 +173,10 @@
 									"type": "DatasetReference",
 									"parameters": {
 										"ContainerName": {
-											"value": "@item().tgt_folder",
+											"value": "@{item().cont_name}",
 											"type": "Expression"
 										},
-										"FileName": {
-											"value": "@item().cont_name",
-											"type": "Expression"
-										}
+										"foldername": "@{item().tgt_folder}"
 									}
 								}
 							]
