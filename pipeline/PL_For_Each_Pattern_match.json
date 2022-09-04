@@ -58,7 +58,7 @@
 				"typeProperties": {
 					"source": {
 						"type": "AzureSqlSource",
-						"sqlReaderQuery": "select id,container_name,source_folder,target_folder,business_type from common_folders;",
+						"sqlReaderQuery": "select id,container_name cont_name,source_folder src_folder,target_folder tgt_folder,business_type business from common_folders;",
 						"queryTimeout": "02:00:00",
 						"partitionOption": "None"
 					},
@@ -160,11 +160,11 @@
 									"type": "DatasetReference",
 									"parameters": {
 										"ContainerName": {
-											"value": "@{item()['cont_name']}",
+											"value": "@{item().cont_name}",
 											"type": "Expression"
 										},
 										"foldername": {
-											"value": "@{item()['tgt_folder']}",
+											"value": "@{item().tgt_folder}",
 											"type": "Expression"
 										}
 									}
@@ -176,11 +176,11 @@
 									"type": "DatasetReference",
 									"parameters": {
 										"ContainerName": {
-											"value": "@{item()['cont_name']}",
+											"value": "@{item().cont_name}",
 											"type": "Expression"
 										},
 										"foldername": {
-											"value": "@{item()['tgt_folder']}",
+											"value": "@{item().tgt_folder}",
 											"type": "Expression"
 										}
 									}
