@@ -181,7 +181,7 @@
 											"type": "Expression"
 										},
 										"FileName": {
-											"value": "@concat(replace(item().tgt_folder,'_src',''),'.csv')",
+											"value": "@concat(replace(item().tgt_folder,'_tgt',''),'.csv')",
 											"type": "Expression"
 										},
 										"foldername": {
