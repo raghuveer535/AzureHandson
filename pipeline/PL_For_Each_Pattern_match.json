@@ -114,7 +114,7 @@
 							"userProperties": [],
 							"typeProperties": {
 								"expression": {
-									"value": "@contains(item().src_folder,'bank')",
+									"value": "@contains(item(),'bank')",
 									"type": "Expression"
 								},
 								"ifTrueActivities": [
