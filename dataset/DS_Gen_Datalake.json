@@ -13,6 +13,10 @@
 			"FileName": {
 				"type": "string",
 				"defaultValue": "Product.csv"
+			},
+			"foldername": {
+				"type": "string",
+				"defaultValue": "tgt"
 			}
 		},
 		"annotations": [],
