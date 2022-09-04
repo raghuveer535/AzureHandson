@@ -19,7 +19,7 @@
 						"type": "JsonSource",
 						"storeSettings": {
 							"type": "AzureBlobFSReadSettings",
-							"fileListPath": "sa-params-json/DB_Details.json",
+							"recursive": true,
 							"enablePartitionDiscovery": false
 						},
 						"formatSettings": {
