@@ -180,7 +180,10 @@
 											"value": "@{item().cont_name}",
 											"type": "Expression"
 										},
-										"FileName": "*.csv",
+										"FileName": {
+											"value": "@concat(replace(item().tgt_folder,'_src',''),'.csv')",
+											"type": "Expression"
+										},
 										"foldername": {
 											"value": "@{item().tgt_folder}",
 											"type": "Expression"
