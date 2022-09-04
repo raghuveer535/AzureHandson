@@ -158,11 +158,11 @@
 									"type": "DatasetReference",
 									"parameters": {
 										"ContainerName": {
-											"value": "@item().value['cont_name']",
+											"value": "@item().cont_name",
 											"type": "Expression"
 										},
 										"FileName": {
-											"value": "@item().value['src_folder']",
+											"value": "@item().src_folder",
 											"type": "Expression"
 										}
 									}
@@ -174,11 +174,11 @@
 									"type": "DatasetReference",
 									"parameters": {
 										"ContainerName": {
-											"value": "@item().value['tgt_folder']",
+											"value": "@item().tgt_folder",
 											"type": "Expression"
 										},
 										"FileName": {
-											"value": "@item().value['cont_name']",
+											"value": "@item().cont_name",
 											"type": "Expression"
 										}
 									}
