@@ -160,10 +160,13 @@
 									"type": "DatasetReference",
 									"parameters": {
 										"ContainerName": {
-											"value": "@{item().cont_name}",
+											"value": "@{item()['cont_name']}",
 											"type": "Expression"
 										},
-										"foldername": "@{item().tgt_folder}"
+										"foldername": {
+											"value": "@{item()['tgt_folder']}",
+											"type": "Expression"
+										}
 									}
 								}
 							],
@@ -173,10 +176,13 @@
 									"type": "DatasetReference",
 									"parameters": {
 										"ContainerName": {
-											"value": "@{item().cont_name}",
+											"value": "@{item()['cont_name']}",
 											"type": "Expression"
 										},
-										"foldername": "@{item().tgt_folder}"
+										"foldername": {
+											"value": "@{item()['tgt_folder']}",
+											"type": "Expression"
+										}
 									}
 								}
 							]
