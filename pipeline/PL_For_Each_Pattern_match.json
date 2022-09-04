@@ -163,6 +163,7 @@
 											"value": "@{item().cont_name}",
 											"type": "Expression"
 										},
+										"FileName": "*.csv",
 										"foldername": {
 											"value": "@{item().tgt_folder}",
 											"type": "Expression"
@@ -179,6 +180,7 @@
 											"value": "@{item().cont_name}",
 											"type": "Expression"
 										},
+										"FileName": "*.csv",
 										"foldername": {
 											"value": "@{item().tgt_folder}",
 											"type": "Expression"
