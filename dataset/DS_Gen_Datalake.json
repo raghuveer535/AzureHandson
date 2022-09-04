@@ -2,17 +2,13 @@
 	"name": "DS_Gen_Datalake",
 	"properties": {
 		"linkedServiceName": {
-			"referenceName": "Generic_Datalake_LS",
+			"referenceName": "LS_AzureDataLakeStorage",
 			"type": "LinkedServiceReference"
 		},
 		"parameters": {
 			"ContainerName": {
 				"type": "string",
 				"defaultValue": "adlscont"
-			},
-			"FolderName": {
-				"type": "string",
-				"defaultValue": "SourceFolder"
 			},
 			"FileName": {
 				"type": "string",
@@ -26,10 +22,6 @@
 				"type": "AzureBlobFSLocation",
 				"fileName": {
 					"value": "@dataset().FileName",
-					"type": "Expression"
-				},
-				"folderPath": {
-					"value": "@dataset().FolderName",
 					"type": "Expression"
 				},
 				"fileSystem": {
