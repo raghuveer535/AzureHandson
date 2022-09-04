@@ -6,9 +6,6 @@
 			"type": "LinkedServiceReference"
 		},
 		"parameters": {
-			"dir": {
-				"type": "string"
-			},
 			"file_name": {
 				"type": "string"
 			}
@@ -20,10 +17,6 @@
 				"type": "AzureBlobFSLocation",
 				"fileName": {
 					"value": "@dataset().file_name",
-					"type": "Expression"
-				},
-				"folderPath": {
-					"value": "@dataset().dir",
 					"type": "Expression"
 				},
 				"fileSystem": "sa-params-json"
