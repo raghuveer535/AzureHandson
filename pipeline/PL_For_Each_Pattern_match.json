@@ -102,7 +102,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"items": {
-						"value": "@activity('getFolderDetails').output.value",
+						"value": "@activity('getFolderDetails').output",
 						"type": "Expression"
 					},
 					"isSequential": true,
